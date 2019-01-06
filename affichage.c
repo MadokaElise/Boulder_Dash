@@ -2,31 +2,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
+#include <SDL_video.h>
+#include <SDL_image.h>
 
 #include "constante.h"
 
 
-void map (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR])
-{
-	map[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR] = 
-	{
-	{'i','i','i','i','r','t','t','d','t','t'},
-	{'t','t','r','i',' ','t','t','t','i','i'},
-	{'b','t','t','i','t','t','t','i','i','i'},
-	{'t','t','t','t','t','t','t','t','i','i'},
-	{'t','r','r','i','t','t','t','f','i','i'},
-	{'i','i','i','i','t','t','t','t','i','i'},
-	{'d','r','r','r','t','t','t',' ','r','t'},
-	{'t','t','t','t','t','d','t',' ','r','r'},
-	{'t','t','t','t','t','t','t','t','r','r'},
-	{'r','r','r','r','t','t','t','t','r','r'},
-	}
-	return;
-}
 
 
-
-int affichage (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR], SDL_Surface ecran)
+int affichage (char tab[NB_COLONNE][NB_LIGNE], SDL_Surface *ecran)
 {
 	// creation des surface
 	SDL_Surface *terre = NULL, *incassable = NULL, *diamant = NULL, *porte_ouverte = NULL,
@@ -34,15 +18,15 @@ int affichage (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR], SDL_Surface ecran)
 	// creation de la variable position qui cible une surface
 	SDL_Rect position, positionJoueur;
 	
-	int i, j; 
+	int i, j,Diamant_Restant; 
 	
 	// Placement des objets à l'écran
 	// Conteur de point si apres ballayage Diamant_Restant =0 alors 
 	//la porte devient ouverte
-    Diamant_Restants = 0;
+    Diamant_Restant = 0;
         
     // Chargement des sprites
-    terrre = IMG_Load("Terre_1.bmp");
+    terre = IMG_Load("Terre_1.bmp");
     incassable = IMG_Load("Terre_3.bmp");
     diamant= IMG_Load("diamant_2.bmp");
     porte_ouverte = IMG_Load("porte_ouverte.bmp");
@@ -51,14 +35,14 @@ int affichage (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR], SDL_Surface ecran)
     rocher = IMG_Load("rocher_1.bmp");
        
 	// Ballayage du tableau pour placer les sprites sur l'ecran
-	for (i = 0 ; i < NB_BLOCS_LARGEUR ; i++)
+	for (i = 0 ; i < NB_COLONNE ; i++)
     {
-		for (j = 0 ; j < NB_BLOCS_HAUTEUR ; j++)
+		for (j = 0 ; j < NB_LIGNE ; j++)
 		{
 			position.x = i * TAILLE_BLOC;
 			position.y = j * TAILLE_BLOC;
 
-			switch(carte[i][j])
+			switch(tab[j][i])
 			{
 				case TERRE:
 					SDL_BlitSurface(terre, NULL, ecran, &position);
@@ -71,7 +55,7 @@ int affichage (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR], SDL_Surface ecran)
 					break;
 				case DIAMANT:
 					SDL_BlitSurface(diamant, NULL, ecran, &position);
-					objectifsRestants = 1;
+					Diamant_Restant++;
                     break;
                 case PORTE_OUVERTE:
 					SDL_BlitSurface(porte_ouverte, NULL, ecran, &position);
@@ -86,4 +70,6 @@ int affichage (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR], SDL_Surface ecran)
 			}
 		}
 	}
+	SDL_Flip(ecran);
+	return Diamant_Restant;
 }
