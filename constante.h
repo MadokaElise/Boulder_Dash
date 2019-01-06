@@ -2,9 +2,9 @@
 #define CONSTANTES
 	
 	// Constante des dimension
-    #define TAILLE_BLOC   34 // Taille d'un bloc (carré) en pixels
-    #define NB_COLONNE    12 // nombre de colonne du palateau
-    #define NB_LIGNE      12 // nombre de ligne du plateau
+    #define TAILLE_BLOC   32 // Taille d'un bloc (carré) en pixels
+    #define NB_COLONNE    10 // nombre de colonne du palateau
+    #define NB_LIGNE      10 // nombre de ligne du plateau
     #define LARGEUR_FENETRE     TAILLE_BLOC * NB_COLONNE
     #define HAUTEUR_FENETRE     TAILLE_BLOC * NB_LIGNE
 	
