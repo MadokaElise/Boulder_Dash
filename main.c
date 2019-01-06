@@ -6,6 +6,7 @@
 
 #include "constante.h"
 #include "affichage.h"
+#include "jouer.h"
 
 
 void pause()
@@ -51,12 +52,9 @@ int main(void)
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
 	
+	jouer(map, ecran);
 	
 	
-	
-	diamant = affichage(map,ecran);
-	SDL_Flip(ecran);
-	pause();
 	
     //menu = IMG_Load("menu.jpg");
     //positionMenu.x = 0;
@@ -88,9 +86,9 @@ int main(void)
         * }
 */	
         // Effacement de l'écran
-        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+        //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
         //SDL_BlitSurface(menu, NULL, ecran, &positionMenu);
-        SDL_Flip(ecran);
+        //SDL_Flip(ecran);
     
 	
     //SDL_FreeSurface(menu);

@@ -16,6 +16,7 @@
 	#define BONHOMME        'b'
 	#define PORTE_FERME     'f'
 	#define PORTE_OUVERTE   'o'
+	#define GALERIE         ' '
 	
 	// Constante Orientation
 	

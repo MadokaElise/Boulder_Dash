@@ -16,7 +16,7 @@ int affichage (char tab[NB_COLONNE][NB_LIGNE], SDL_Surface *ecran)
 	SDL_Surface *terre = NULL, *incassable = NULL, *diamant = NULL, *porte_ouverte = NULL,
 	*porte_ferme=NULL, *bonhomme=NULL, *rocher=NULL;
 	// creation de la variable position qui cible une surface
-	SDL_Rect position, positionJoueur;
+	SDL_Rect position;
 	
 	int i, j,Diamant_Restant; 
 	
