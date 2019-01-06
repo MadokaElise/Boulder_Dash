@@ -51,10 +51,14 @@ int main(void)
     SDL_WM_SetIcon(IMG_Load("perso_1.bmp"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
-	
-	jouer(map, ecran);
-	
-	
+	int x=1;
+
+	while (x<10)
+	{
+		printf("truc\n");
+	jouer(map , ecran);
+	x++;
+	}
 	
     //menu = IMG_Load("menu.jpg");
     //positionMenu.x = 0;
@@ -72,19 +76,22 @@ int main(void)
                 switch(event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE: // Veut arrêter le jeu
-                        continuer = 0;
+                        //continuer = 0;
                         break;
-                    case SDLK_KP1: // Demande à jouer
-                        jouer(ecran);
+                    case SDLK_q: // Demande à jouer
+                        jouer(map , ecran);
                         break;
                     case SDLK_KP2: // Demande l'éditeur de niveaux
-                        editeur(ecran);
+                        //editeur(ecran);
                         break;
+					default:
+						break;
                 }
                 break;
+                
         }
-        * }
-*/	
+     }
+*/
         // Effacement de l'écran
         //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
         //SDL_BlitSurface(menu, NULL, ecran, &positionMenu);
