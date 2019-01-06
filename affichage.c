@@ -6,7 +6,23 @@
 #include "constante.h"
 
 
-void map
+void map (char tab[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR])
+{
+	map[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR] = 
+	{
+	{'i','i','i','i','r','t','t','d','t','t'},
+	{'t','t','r','i',' ','t','t','t','i','i'},
+	{'b','t','t','i','t','t','t','i','i','i'},
+	{'t','t','t','t','t','t','t','t','i','i'},
+	{'t','r','r','i','t','t','t','f','i','i'},
+	{'i','i','i','i','t','t','t','t','i','i'},
+	{'d','r','r','r','t','t','t',' ','r','t'},
+	{'t','t','t','t','t','d','t',' ','r','r'},
+	{'t','t','t','t','t','t','t','t','r','r'},
+	{'r','r','r','r','t','t','t','t','r','r'},
+	}
+	return;
+}
 
 
 
