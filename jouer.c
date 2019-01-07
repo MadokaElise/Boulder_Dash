@@ -72,12 +72,14 @@ void mouvement_joueur(char tab[NB_COLONNE][NB_LIGNE], int orientation, SDL_Rect 
 void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran) 
 {
 	
-	int i, j, diamant, continuer=0 ;
+	int i, j, x,y, diamant, continuer=0 ;
 	
 	SDL_Rect  position_joueur;
 	SDL_Event event;
 	
 	printf("truc4\n");
+	
+	diamant = affichage(tab,ecran);
 	
 	// REcherche de la position de depart du bonhomme
 	for (i = 0 ; i < NB_COLONNE ; i++)
@@ -92,7 +94,7 @@ void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran)
             }
         }
     }
-
+	
     // Activation de la répétition des touches
     SDL_EnableKeyRepeat(100, 100);
 
@@ -109,7 +111,7 @@ void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran)
 				switch(event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						continuer = 0;
+						continuer = 1;
 						break;
 					case SDLK_UP:
 						mouvement_joueur(tab, HAUT, &position_joueur);
@@ -129,7 +131,7 @@ void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran)
 				break;
 				
 		}
-		printf("aff\n");
+		
 		// Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
 		SDL_Flip(ecran);
@@ -142,7 +144,35 @@ void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran)
 		
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
         if (!diamant)
-			continuer=1;
+        {
+			// Recherche de la position de de la porte ferme pour la rendre ouverte
+			for (i = 0 ; i < NB_COLONNE ; i++)
+			{
+				for (j = 0 ; j < NB_LIGNE ; j++)
+				{
+					if (tab[i][j] == PORTE_FERME) 
+					{
+						tab[i][j] = PORTE_OUVERTE;
+						x=i;
+						y=j;
+					}
+				}
+			}
+		}
+		printf("joueur : %d %d\n",position_joueur.x,position_joueur.y );
+		
+		if ( (position_joueur.x==x) && (position_joueur.y==y) )
+		{
+			printf("fini\n");
+			continuer =1;
+			
+		}
+					
+			
+		
+		
+		
+
             //placer porte ouverte dans le tableur
 
        

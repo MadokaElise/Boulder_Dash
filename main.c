@@ -53,12 +53,10 @@ int main(void)
     SDL_WM_SetCaption("Boulder Dash", NULL);
 	int x=1;
 
-	while (x<10)
-	{
+	
 		printf("truc\n");
 	jouer(map , ecran);
-	x++;
-	}
+	
 	
     //menu = IMG_Load("menu.jpg");
     //positionMenu.x = 0;
