@@ -45,16 +45,18 @@ int main(void)
 	{'t','t','t','t','t','t','t','t','r','r'},
 	{'r','r','r','r','t','t','t','t','r','r'}
 	};
-
+	
+	
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_WM_SetIcon(IMG_Load("perso_1.bmp"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
+    //SDL_WM_SetIcon(IMG_Load("perso_1.bmp"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
-	int x=1;
 
-	
-		printf("truc\n");
+
+	affichage(map, ecran);
+	SDL_Flip(ecran);
+	printf("truc\n");
 	jouer(map , ecran);
 	
 	

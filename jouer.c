@@ -7,7 +7,7 @@
 #include "affichage.h"
 #include "constante.h"
 
-void mouvement_joueur(char tab[NB_COLONNE][NB_LIGNE], int orientation, SDL_Rect *pos)
+void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos)
 {
 	
 	switch(orientation)
@@ -69,7 +69,7 @@ void mouvement_joueur(char tab[NB_COLONNE][NB_LIGNE], int orientation, SDL_Rect 
 }
 }
 
-void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran) 
+void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran) 
 {
 	
 	int i, j, x,y, diamant, continuer=0 ;
@@ -141,20 +141,22 @@ void jouer (char tab[NB_COLONNE][NB_LIGNE],SDL_Surface *ecran)
         // Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
 		SDL_Flip(ecran);
-		
+		printf("nb diamant %d\n", diamant);
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
-        if (!diamant)
+        if (diamant==0)
         {
+			printf("gagner\n");
 			// Recherche de la position de de la porte ferme pour la rendre ouverte
 			for (i = 0 ; i < NB_COLONNE ; i++)
 			{
 				for (j = 0 ; j < NB_LIGNE ; j++)
 				{
-					if (tab[i][j] == PORTE_FERME) 
+					if (tab[j][i] == PORTE_FERME) 
 					{
-						tab[i][j] = PORTE_OUVERTE;
-						x=i;
-						y=j;
+						tab[j][i] = PORTE_OUVERTE;
+						y=i;
+						x=j;
+						printf("i , j %d %d\n",x,y);
 					}
 				}
 			}
