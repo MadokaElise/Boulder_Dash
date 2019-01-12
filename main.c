@@ -55,6 +55,9 @@ int main(void)
 
 
 	affichage(map, ecran);
+	//pause();
+	
+	printf("perso : %c \n", map[2][0]);
 	SDL_Flip(ecran);
 	printf("truc\n");
 	jouer(map , ecran);

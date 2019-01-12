@@ -52,6 +52,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 					break;
 				case BONHOMME:
 					SDL_BlitSurface(bonhomme, NULL, ecran, &position);
+					printf("aff bonhomme:\n");
 					break;
 				case DIAMANT:
 					SDL_BlitSurface(diamant, NULL, ecran, &position);

@@ -64,9 +64,8 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 			tab[pos->x + 1][pos->y]=BONHOMME;
 			pos->x++;
 			break;
-			
-
-}
+		}
+		
 }
 
 void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran) 
@@ -90,7 +89,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
             {
                 position_joueur.x = i;
                 position_joueur.y = j;
-                tab[i][j] = GALERIE;
+                
             }
         }
     }
@@ -141,7 +140,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
         // Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
 		SDL_Flip(ecran);
-		printf("nb diamant %d\n", diamant);
+		//("nb diamant %d\n", diamant);
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
         if (diamant==0)
         {
@@ -161,11 +160,11 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
 				}
 			}
 		}
-		printf("joueur : %d %d\n",position_joueur.x,position_joueur.y );
+		//printf("joueur : %d %d\n",position_joueur.x,position_joueur.y );
 		
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
-			printf("fini\n");
+			//printf("fini\n");
 			continuer =1;
 			
 		}
