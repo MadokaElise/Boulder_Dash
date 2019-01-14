@@ -58,6 +58,10 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 					SDL_BlitSurface(diamant, NULL, ecran, &position);
 					Diamant_Restant++;
                     break;
+                case DIAMANTMVT:
+					SDL_BlitSurface(diamant, NULL, ecran, &position);
+					Diamant_Restant++;
+                    break;
                 case PORTE_OUVERTE:
 					SDL_BlitSurface(porte_ouverte, NULL, ecran, &position);
 					break;
@@ -65,6 +69,9 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 					SDL_BlitSurface(porte_ferme, NULL, ecran, &position);
 					break;
 				case ROCHER:
+					SDL_BlitSurface(rocher, NULL, ecran, &position);
+					break;
+				case ROCHERMVT:
 					SDL_BlitSurface(rocher, NULL, ecran, &position);
 					break;
                     
