@@ -14,7 +14,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 {
 	// creation des surface
 	SDL_Surface *terre = NULL, *incassable = NULL, *diamant = NULL, *porte_ouverte = NULL,
-	*porte_ferme=NULL, *bonhomme=NULL, *rocher=NULL;
+	*porte_ferme=NULL, *bonhomme=NULL, *rocher=NULL, *rocher_mvt=NULL;
 	// creation de la variable position qui cible une surface
 	SDL_Rect position;
 	
@@ -33,6 +33,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
     porte_ferme= IMG_Load("porte_ferme.bmp");
     bonhomme= IMG_Load("perso_1.bmp");
     rocher = IMG_Load("rocher_1.bmp");
+    rocher_mvt = IMG_Load("rocher_mvt.bmp");
        
 	// Ballayage du tableau pour placer les sprites sur l'ecran
 	for (i = 0 ; i < NB_COLONNE ; i++)
@@ -72,7 +73,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 					SDL_BlitSurface(rocher, NULL, ecran, &position);
 					break;
 				case ROCHERMVT:
-					SDL_BlitSurface(rocher, NULL, ecran, &position);
+					SDL_BlitSurface(rocher_mvt, NULL, ecran, &position);
 					break;
                     
 			}
