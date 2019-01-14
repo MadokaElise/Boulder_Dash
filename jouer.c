@@ -97,67 +97,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
     }
 }
 
-/*
-void gravitecote (char tab[NB_LIGNE][NB_COLONNE])
-{
-	int i,j;
-	for (i = NB_COLONNE ; i>0 ; i--)
-    {
-        for (j = NB_LIGNE ; j>0 ; j--)
-        {
-            if ( (tab[i][j] == ROCHER) || (tab[i][j] == DIAMANT ))
-            {
-                if ( (tab[i+1][j+1] == GALERIE) && (tab[i][j+1] == GALERIE) )
-                {
-					
-					if  (tab[i][j] == ROCHER)
-					{
-						tab[i][j+1]=ROCHERMVT;
-					}
-					if  (tab[i][j] == DIAMANT)
-					{
-						tab[i][j+1]=DIAMANTMVT;
-					}
-					tab[i][j]=GALERIE;
-					
-				}
-                
-            }
-            if ((tab[i][j] == ROCHERMVT) || (tab[i][j] == DIAMANTMVT ))
-            {
-				if (tab[i+1][j] == GALERIE) 
-                {
-					
-					if  (tab[i][j] == ROCHERMVT)
-					{
-						tab[i][j+1]=ROCHERMVT;
-					}
-					if  (tab[i][j] == DIAMANTMVT)
-					{
-						tab[i][j+1]=DIAMANTMVT;
-					}
-					tab[i][j]=GALERIE;
-					
-				}
-			
-                if (tab[i+1][j] != GALERIE) 
-                {
-					if  (tab[i][j] == ROCHERMVT)
-					{
-						tab[i][j] = ROCHER;
-					}
-					if  (tab[i][j] == DIAMANTMVT)
-					{
-						tab[i][j] =DIAMANT;
-					}
-					
-				}
-			}            
-        }
-    }
-}
-
-*/
+   
 void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos)
 {
 	
@@ -227,8 +167,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
 	SDL_Rect  position_joueur;
 	SDL_Event event;
 	
-	printf("truc4\n");
-	
+
 	diamant = affichage(tab,ecran);
 	
 	// Recherche de la position de depart du bonhomme
@@ -254,7 +193,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
         SDL_WaitEvent(&event);
 		switch(event.type)
 		{
-			printf("switch\n");
+
 			case SDL_QUIT:
 				continuer = 1;
 				break;
@@ -298,7 +237,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
         if (diamant==0)
         {
-			printf("gagner\n");
+			
 			// Recherche de la position de de la porte ferme pour la rendre ouverte
 			for (i = 0 ; i < NB_COLONNE ; i++)
 			{
@@ -309,7 +248,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
 						tab[j][i] = PORTE_OUVERTE;
 						y=i;
 						x=j;
-						printf("i , j %d %d\n",x,y);
+					
 					}
 				}
 			}
