@@ -12,54 +12,54 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 	
 	switch(orientation)
     {
-        case GAUCHE:
+        case GAUCHE: /** Y est l'abscisse **/
 			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermer:
+			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
 			if ((pos->y - 1 < 0) || (tab[pos->x][pos->y - 1]== INCASSABLE)|| (tab[pos->x][pos->y - 1]== ROCHER)|| (tab[pos->x][pos->y - 1]== PORTE_FERME))
 			{
-				// si la case ou le joeur veut se rendre est indertite on sort de la boucle
+				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
 				break;
 			}
-			// si la case est accecible le joeur monte
+			// si la case est accessible le joueur monte
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y-1]=BONHOMME;
 			pos->y--;
 			break;
 		case DROITE:
 			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermer:
+			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
 			if ((pos->y + 1 < 0) || (tab[pos->x][pos->y + 1]== INCASSABLE)|| (tab[pos->x][pos->y + 1]== ROCHER)|| (tab[pos->x][pos->y + 1]== PORTE_FERME))
 			{
-				// si la case ou le joeur veut se rendre est indertite on sort de la boucle
+				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
 				break;
 			}
-			// si la case est accecible le joeur descent
+			// si la case est accessible le joueur descent
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y+1]=BONHOMME;
 			pos->y++;
 			break;
 		case HAUT:
 			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermer:
+			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
 			if ((pos->x - 1 < 0) || (tab[pos->x - 1][pos->y]== INCASSABLE)|| (tab[pos->x - 1][pos->y]== ROCHER)|| (tab[pos->x - 1][pos->y]== PORTE_FERME))
 			{
-				// si la case ou le joeur veut se rendre est indertite on sort de la boucle
+				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
 				break;
 			}
-			// si la case est accecible le joeur monte
+			// si la case est accessible le joueur monte
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x - 1][pos->y]=BONHOMME;
 			pos->x--;
 			break;
 		case BAS:
 			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermer:
+			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
 			if ((pos->x + 1 < 0) || (tab[pos->x + 1][pos->y]== INCASSABLE)|| (tab[pos->x + 1][pos->y]== ROCHER)|| (tab[pos->x + 1][pos->y]== PORTE_FERME))
 			{
-				// si la case ou le joeur veut se rendre est indertite on sort de la boucle
+				// si la case ou le joueur veut se rendre est indertite on sort de la boucle
 				break;
 			}
-			// si la case est accecible le joeur monte
+			// si la case est accessible le joueur monte
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x + 1][pos->y]=BONHOMME;
 			pos->x++;
@@ -80,7 +80,7 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
 	
 	diamant = affichage(tab,ecran);
 	
-	// REcherche de la position de depart du bonhomme
+	// Recherche de la position de depart du bonhomme
 	for (i = 0 ; i < NB_COLONNE ; i++)
     {
         for (j = 0 ; j < NB_LIGNE ; j++)
@@ -102,9 +102,9 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
         SDL_WaitEvent(&event);
 		switch(event.type)
 		{
-			printf("swtich\n");
+			printf("switch\n");
 			case SDL_QUIT:
-				continuer = 0;
+				continuer = 1;
 				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym)
@@ -166,20 +166,9 @@ void jouer (char tab[NB_LIGNE][NB_COLONNE],SDL_Surface *ecran)
 		{
 			//printf("fini\n");
 			continuer =1;
-			
 		}
-					
-			
-		
-		
-		
 
             //placer porte ouverte dans le tableur
-
-       
-        
-
-
 
         SDL_Flip(ecran);
 	}
