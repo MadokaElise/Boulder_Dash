@@ -34,7 +34,7 @@ int main(void)
     SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL;
 	SDL_Rect positionRegle, positionBoutonFin;
 	SDL_WaitEvent(&event);
-	
+	/*
     char map[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
@@ -58,7 +58,7 @@ int main(void)
 	{'t','t','t',' ','t','t',' ','t','r','t','t','r','t','r','r','t','t','t','t','t','t','t','t','t','r','t','r','d','t','t','t','t','t','t','r','t','t','r'},
 	{'t','d','t','t','t','t','r','t','t','t','t','t',' ','t','t','t','t','t','t','t','t','t',' ','t','r','t','t','r','t','t','t','t','r','t','t','t','r','t'},
 	};
-	
+	*/
 	
     SDL_Init(SDL_INIT_VIDEO);
 	SDL_WM_SetIcon(IMG_Load("icone.ico"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
@@ -123,7 +123,7 @@ int main(void)
 		
 		}else if(choix==2)
 		{
-			affichage(map, ecran);
+			
 			//pause();
 			
 			SDL_Flip(ecran);

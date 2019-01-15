@@ -7,17 +7,21 @@
 #include "affichage.h"
 #include "constante.h"
 
-
-
-void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
+// gestion de la gravite rochr dans le vide et rocher en suspenstion sur un autre
+//( rocher et dimant subissent les meme regle de gravite)
+int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int continuer)
 {
+	
 	int i,j;
+	// ballayage de la map  à l'envers à la rocher de rocher et diamant
 	for (i = NB_LIGNE ; i>=0 ; i--)
     {
         for (j = NB_COLONNE ; j>=0 ; j--)
         {
+			// recherche de diamant qui va devoir etre chager en rocher en mouvement
             if ( (tab[i][j] == ROCHER) || (tab[i][j] == DIAMANT ))
             {
+				// test si le rocher chutent toud droit car il se trouve en suspention dans le vide
                 if (tab[i+1][j] == GALERIE) 
                 {
 					
@@ -32,7 +36,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					tab[i][j]=GALERIE;
 					
 				}
-				
+				// test si le rocher est en equillibre sur un autre ou non et si des galerie se trouve autour de lui a droite ou a gauche
                 if ( (tab[i+1][j+1] == GALERIE) && (tab[i][j+1] == GALERIE) && ((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
                 {
 					
@@ -47,6 +51,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					tab[i][j]=GALERIE;
 					
 				}
+				
 				 if ( (tab[i+1][j-1] == GALERIE) && (tab[i][j-1] == GALERIE) &&((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
                 {
 					
@@ -63,8 +68,10 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 				}
                 
             }
+            // gestion des rocher en mouvement 
             if ( (tab[i][j] == ROCHERMVT) || (tab[i][j] == DIAMANTMVT ))
             {
+				// test si le rocher reste en mouvement car toujours en suspention dans le vide
 				if (tab[i+1][j] == GALERIE) 
                 {
 					
@@ -79,9 +86,14 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					tab[i][j]=GALERIE;
 					
 				}
-			
+				// si le rocher tombe sur un obsatacle sa chute s'arrete
                 if (tab[i+1][j] != GALERIE) 
                 {
+					if (tab[i+1][j] == BONHOMME)
+					{
+						printf ("game over !! \n");
+						return continuer =1;
+					}
 					if  (tab[i][j] == ROCHERMVT)
 					{
 						tab[i][j] = ROCHER;
@@ -95,6 +107,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 			}            
         }
     }
+    return continuer = 0;
 }
 
    
@@ -161,6 +174,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 
 void jouer (SDL_Surface *ecran) 
 {
+
 	
 	int i, j, x,y, diamant, continuer=0 ;
 	char tab[NB_LIGNE][NB_COLONNE] = 
@@ -214,9 +228,10 @@ void jouer (SDL_Surface *ecran)
     {
 		
         SDL_WaitEvent(&event);
+       
 		switch(event.type)
 		{
-
+			
 			case SDL_QUIT:
 				continuer = 1;
 				break;
@@ -245,10 +260,12 @@ void jouer (SDL_Surface *ecran)
 				break;
 				
 		}
-		gravitedirect(tab);
 		
+		continuer =gravitedirect(tab, continuer);
+
 		// Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
+		
 		SDL_Flip(ecran);
         // Effacement de l'écran
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
@@ -283,7 +300,7 @@ void jouer (SDL_Surface *ecran)
 			//printf("fini\n");
 			continuer =1;
 		}
-
+		 
             //placer porte ouverte dans le tableur
 
         SDL_Flip(ecran);
