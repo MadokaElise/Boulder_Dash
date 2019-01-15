@@ -9,7 +9,7 @@
 
 // gestion de la gravite rochr dans le vide et rocher en suspenstion sur un autre
 //( rocher et dimant subissent les meme regle de gravite)
-int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int continuer)
+int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 {
 	
 	int i,j;
@@ -92,7 +92,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int continuer)
 					if (tab[i+1][j] == BONHOMME)
 					{
 						printf ("game over !! \n");
-						return continuer =2;
+						return mort =1;
 					}
 					if  (tab[i][j] == ROCHERMVT)
 					{
@@ -107,7 +107,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int continuer)
 			}            
         }
     }
-    return continuer = 0;
+    return mort = 0;
 }
 
    
@@ -180,7 +180,7 @@ void jouer (SDL_Surface *ecran)
 	SDL_Rect positiongameover;
 	positiongameover.x= 300;
 	positiongameover.y=50;
-	int i, j, x,y, diamant, continuer=0 ;
+	int i, j, x,y, diamant, continuer=0, mort ;
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
@@ -237,6 +237,9 @@ void jouer (SDL_Surface *ecran)
 		{
 			
 			case SDL_QUIT:
+				 
+        printf(" continuer %d\n",continuer);
+		
 				continuer = 1;
 				break;
 			case SDL_KEYDOWN:
@@ -265,13 +268,16 @@ void jouer (SDL_Surface *ecran)
 				
 		}
 		
-		continuer =gravitedirect(tab, continuer);
+		mort =gravitedirect(tab, mort);
 	
-		if (continuer == 2)
+		if (mort == 1)
 		{
+			continuer=1;
 			SDL_BlitSurface(gameover, NULL, ecran, &positiongameover);
 			SDL_Flip(ecran);
-			SDL_Delay(3000);
+			
+			SDL_Delay(2500);
+			
 			
 		}
 		
@@ -312,9 +318,7 @@ void jouer (SDL_Surface *ecran)
 			//printf("fini\n");
 			continuer =1;
 		}
-		 
-            //placer porte ouverte dans le tableur
-
+	
         SDL_Flip(ecran);
 	}
 }
