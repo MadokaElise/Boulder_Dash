@@ -131,23 +131,14 @@ int main(void)
 			//pause();
 			
 			SDL_Flip(ecran);
-			jouer(map , ecran);
+			jouer(ecran);
 			
 		}
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 		
-	}while((choix!=1)&&(choix!=5));
+	}while((choix!=1)&&(choix!=5));	
 		
-		
-			// Effacement de l'écran
-			//SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-			//SDL_BlitSurface(menu, NULL, ecran, &positionMenu);
-			//SDL_Flip(ecran);
-		
-		
-		
-		SDL_Quit();
-		
-		return EXIT_SUCCESS;
+	SDL_Quit();
+	return EXIT_SUCCESS;
 	
 }
