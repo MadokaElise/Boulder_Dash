@@ -57,7 +57,38 @@ void menu(int* choix, SDL_Surface *ecran)
             case SDL_QUIT:
                 *choix = 1; //QUITTER
                 break;
-                
+           
+           //MOUVEMENT DE LA SOURIS
+            /** case SDL_MOUSEMOTION:
+				z=event.motion.x;
+				t=event.motion.y;
+				
+				
+				if(((84 < z)&&(z < 306))&&((339 < t)&&(t < 416))) 
+					{
+							boutonjoueractif = IMG_Load("boutonjoueractif.bmp");
+							positionBoutonJouerActif.x=85;
+							positionBoutonJouerActif.y=340;
+							SDL_BlitSurface(boutonjoueractif, NULL, ecran, &positionBoutonJouerActif);
+							SDL_Flip(ecran);
+							*choix=17;
+						*actif = 1; //JOUER
+						break;
+					}else if(((389 < z)&&(z < 611))&&((339 < t)&&(t < 416)))
+					{
+						*actif = 2; // SCORE
+						break;
+					}else if(((84 < z)&&(z < 306))&&((499 < t)&&(t < 576)))
+					{
+						*actif = 3; // AIDE
+						break;
+					}else if(((389 < z)&&(z < 611))&&((499 < t)&&(t < 576)))
+					{
+						*actif = 4; // FIN
+						break;
+					}
+				break; **/
+            
             case SDL_MOUSEBUTTONUP: /* Clic de la souris */
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{

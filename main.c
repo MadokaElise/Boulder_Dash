@@ -71,11 +71,7 @@ int main(void)
 			choix=0;
 			menu(&choix, ecran);
 			
-			if((choix==1)||(choix==5))
-			{
-				choix=5;
-				//SDL_Quit();
-			}else if(choix==3)
+			if(choix==3)
 			{
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				//	affichage score
