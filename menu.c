@@ -15,7 +15,7 @@ void menu(int* choix, SDL_Surface *ecran)
 	int x=0,y=0;
 	
 	SDL_Surface *menu = NULL, *boutonjouer = NULL, *boutonscore = NULL, *boutonaide = NULL, *boutonfin = NULL;
-
+	
 	SDL_Event event;
 	SDL_Rect positionMenu, positionBoutonJouer,positionBoutonFin, positionBoutonScore, positionBoutonAide;
 	

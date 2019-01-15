@@ -92,7 +92,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int continuer)
 					if (tab[i+1][j] == BONHOMME)
 					{
 						printf ("game over !! \n");
-						return continuer =1;
+						return continuer =2;
 					}
 					if  (tab[i][j] == ROCHERMVT)
 					{
@@ -174,8 +174,12 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 
 void jouer (SDL_Surface *ecran) 
 {
-
-	
+	void SDL_Delay(Uint32 ms);
+	SDL_Surface *gameover = NULL;
+	gameover = IMG_Load("game_over.bmp");
+	SDL_Rect positiongameover;
+	positiongameover.x= 300;
+	positiongameover.y=50;
 	int i, j, x,y, diamant, continuer=0 ;
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
@@ -262,7 +266,15 @@ void jouer (SDL_Surface *ecran)
 		}
 		
 		continuer =gravitedirect(tab, continuer);
-
+	
+		if (continuer == 2)
+		{
+			SDL_BlitSurface(gameover, NULL, ecran, &positiongameover);
+			SDL_Flip(ecran);
+			SDL_Delay(3000);
+			
+		}
+		
 		// Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
 		
