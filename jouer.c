@@ -25,7 +25,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					{
 						tab[i+1][j]=ROCHERMVT;
 					}
-					if  (tab[i][j] == DIAMANT)
+					else if  (tab[i][j] == DIAMANT)
 					{
 						tab[i+1][j]=DIAMANTMVT;
 					}
@@ -40,7 +40,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					{
 						tab[i][j+1]=ROCHERMVT;
 					}
-					if  (tab[i][j] == DIAMANT)
+					else if  (tab[i][j] == DIAMANT)
 					{
 						tab[i][j+1]=DIAMANTMVT;
 					}
@@ -54,7 +54,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					{
 						tab[i][j-1]=ROCHERMVT;
 					}
-					if  (tab[i][j] == DIAMANT)
+					else if  (tab[i][j] == DIAMANT)
 					{
 						tab[i][j-1]=DIAMANTMVT;
 					}
@@ -72,7 +72,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					{
 						tab[i+1][j]=ROCHERMVT;
 					}
-					if  (tab[i][j] == DIAMANTMVT)
+					else if  (tab[i][j] == DIAMANTMVT)
 					{
 						tab[i+1][j]=DIAMANTMVT;
 					}
@@ -86,7 +86,7 @@ void gravitedirect (char tab[NB_LIGNE][NB_COLONNE])
 					{
 						tab[i][j] = ROCHER;
 					}
-					if  (tab[i][j] == DIAMANTMVT)
+					else if  (tab[i][j] == DIAMANTMVT)
 					{
 						tab[i][j] =DIAMANT;
 					}
