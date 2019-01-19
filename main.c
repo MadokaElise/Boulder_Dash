@@ -11,22 +11,6 @@
 #include "menu.h"
 
 
-void pause()
-{
-    int continuer = 1;
-    SDL_Event event;
- 
-    while (continuer)
-    {
-        SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            case SDL_QUIT:
-                continuer = 0;
-        }
-    }
-}
-
 int main(void)
 {
 	int choix=0,x,y;
@@ -36,8 +20,10 @@ int main(void)
 	SDL_WaitEvent(&event);
 	
     SDL_Init(SDL_INIT_VIDEO);
-	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
+    // chargement de l'icone
+	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); 
     
+    // chargement de la fenetre
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
 	
@@ -45,7 +31,6 @@ int main(void)
 		{
 			choix=0;
 			menu(&choix, ecran);
-			
 			if(choix==3)
 			{
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
@@ -53,7 +38,7 @@ int main(void)
 			}else if(choix==4)
 			{
 				// affichage aide
-				
+			
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				regle = IMG_Load("regle.bmp");
 				boutonfin = IMG_Load("boutonfin.bmp");
@@ -97,13 +82,9 @@ int main(void)
 		
 		
 		}else if(choix==2)
-		{
-			
-			//pause();
-			
+		{	
 			SDL_Flip(ecran);
 			jouer(ecran);
-			
 		}
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 		

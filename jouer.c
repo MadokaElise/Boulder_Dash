@@ -181,6 +181,7 @@ void jouer (SDL_Surface *ecran)
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	int i, j, x,y, diamant, continuer=0, mort ;
+	// initialisation de la map
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
@@ -246,7 +247,7 @@ void jouer (SDL_Surface *ecran)
 				switch(event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						continuer = 1;
+						continuer = 1; // quitter la fenetre de jeu et retourner au menu principale
 						break;
 					case SDLK_UP:
 						mouvement_joueur(tab, HAUT, &position_joueur);
@@ -272,10 +273,11 @@ void jouer (SDL_Surface *ecran)
 	
 		if (mort == 1)
 		{
+			// on quitte la page de jeu pour retourner au menu principale
 			continuer=1;
 			SDL_BlitSurface(gameover, NULL, ecran, &positiongameover);
 			SDL_Flip(ecran);
-			
+			// l'image "gameover" s'affiche 2,5 secondes
 			SDL_Delay(2500);
 			
 			
@@ -291,7 +293,7 @@ void jouer (SDL_Surface *ecran)
         // Affichage de l'ecran de jeu
 		diamant = affichage(tab,ecran);
 		SDL_Flip(ecran);
-		//("nb diamant %d\n", diamant);
+
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
         if (diamant==0)
         {
@@ -303,6 +305,7 @@ void jouer (SDL_Surface *ecran)
 				{
 					if (tab[j][i] == PORTE_FERME) 
 					{
+						// la porte fermer est remplacer par la porte ouverte
 						tab[j][i] = PORTE_OUVERTE;
 						y=i;
 						x=j;
@@ -311,15 +314,13 @@ void jouer (SDL_Surface *ecran)
 				}
 			}
 		}
-		//printf("joueur : %d %d\n",position_joueur.x,position_joueur.y );
-		
+
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
-			//printf("fini\n");
+			// quitte la fenetre de jeu car le joueur a gagné et retourne au menu principal
 			continuer =1;
 		}
-	
-        SDL_Flip(ecran);
+
 	}
 }
 
