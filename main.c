@@ -36,7 +36,7 @@ int main(void)
 	SDL_WaitEvent(&event);
 	
     SDL_Init(SDL_INIT_VIDEO);
-	SDL_WM_SetIcon(IMG_Load("icone.ico"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
+	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); // L'icône doit être chargée avant SDL_SetVideoMode
     
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
