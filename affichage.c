@@ -9,7 +9,9 @@
 
 
 
-// affichage de la map et la fonction retourne  le nombre de diamant restant sur la map pour savoir si la porte doit s'ouvrir ou non
+// affichage de la map
+// et retourne  le nombre de diamants restant sur la map
+// pour savoir si la porte doit s'ouvrir ou non
 int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 {
 	// creation des surface
@@ -21,8 +23,8 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 	int i, j,Diamant_Restant; 
 	
 	// Placement des objets à l'écran
-	// Conteur de point si apres ballayage Diamant_Restant =0  
-	//alors la porte devient ouverte
+	// Compteur de point si apres ballayage Diamant_Restant = 0
+	// alors la porte devient ouverte
     Diamant_Restant = 0;
         
     // Chargement des sprites

@@ -7,13 +7,14 @@
 #include "affichage.h"
 #include "constante.h"
 
-// gestion de la gravite rochr dans le vide et rocher en suspenstion sur un autre
-//( rocher et dimant subissent les meme regle de gravite)
+// Gestion de la gravite rocher dans le vide
+// Rocher en equilibre sur un autre
+//( rocher et diamant subissent les meme regle de gravite)
 int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 {
 	
 	int i,j;
-	// ballayage de la map  à l'envers à la rocher de rocher et diamant
+	// ballayage de la map  à du bas vers le haut à la rocher de rocher et diamant
 	for (i = NB_LIGNE ; i>=0 ; i--)
     {
         for (j = NB_COLONNE ; j>=0 ; j--)
@@ -21,7 +22,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 			// recherche de diamant qui va devoir etre chager en rocher en mouvement
             if ( (tab[i][j] == ROCHER) || (tab[i][j] == DIAMANT ))
             {
-				// test si le rocher chutent toud droit car il se trouve en suspention dans le vide
+				// test si le rocher chutent toud droit car il se trouve dans le vide
                 if (tab[i+1][j] == GALERIE) 
                 {
 					
@@ -36,7 +37,8 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 					tab[i][j]=GALERIE;
 					
 				}
-				// test si le rocher est en equillibre sur un autre ou non et si des galerie se trouve autour de lui a droite ou a gauche
+				// test si le rocher est en equillibre sur un autre ou non et si des galeries
+                //se trouve autour de lui a droite ou a gauche
                 if ( (tab[i+1][j+1] == GALERIE) && (tab[i][j+1] == GALERIE) && ((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
                 {
 					
@@ -68,7 +70,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				}
                 
             }
-            // gestion des rocher en mouvement 
+            // gestion des rochers en mouvement
             if ( (tab[i][j] == ROCHERMVT) || (tab[i][j] == DIAMANTMVT ))
             {
 				// test si le rocher reste en mouvement car toujours en suspention dans le vide
@@ -124,7 +126,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur monte
+			// si la case est accessible le joueur va gauche
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y-1]=BONHOMME;
 			pos->y--;
@@ -137,7 +139,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur descent
+			// si la case est accessible le joueur va droite
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y+1]=BONHOMME;
 			pos->y++;
@@ -163,7 +165,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 				// si la case ou le joueur veut se rendre est indertite on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur monte
+			// si la case est accessible le joueur descend
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x + 1][pos->y]=BONHOMME;
 			pos->x++;
@@ -305,7 +307,7 @@ void jouer (SDL_Surface *ecran)
 				{
 					if (tab[j][i] == PORTE_FERME) 
 					{
-						// la porte fermer est remplacer par la porte ouverte
+						// la porte ferme est remplacer par la porte ouverte
 						tab[j][i] = PORTE_OUVERTE;
 						y=i;
 						x=j;
