@@ -3,12 +3,12 @@
 	
 	// Constante des dimension
     #define TAILLE_BLOC   32 // Taille d'un bloc (carré) en pixels
-    #define NB_COLONNE    38 // nombre de colonne du palateau
-    #define NB_LIGNE      20 // nombre de ligne du plateau
+    #define NB_COLONNE    38 // Nombre de colonne du palateau
+    #define NB_LIGNE      20 // Nombre de ligne du plateau
     #define LARGEUR_FENETRE     TAILLE_BLOC * NB_COLONNE
     #define HAUTEUR_FENETRE     TAILLE_BLOC * NB_LIGNE
 	
-	// Constante des different bloc
+	// Constante des differents blocs
 	#define INCASSABLE      'i'
 	#define ROCHER          'r'
 	#define DIAMANT         'd'
@@ -21,7 +21,7 @@
 	#define DIAMANTMVT      'v'
 	
 	
-	// Constante Orientation
+	// Constante d'orientation
 	
 	#define HAUT     1
 	#define BAS      2

@@ -7,7 +7,9 @@
 
 #include "constante.h"
 
+
 // Fonction qui affichage la map et retourne le nombre de diamant restant sur la map pour savoir si la porte doit s'ouvrir ou non
+
 int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 {
 	// Création des surfaces
@@ -20,6 +22,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 	
 	// Placement des objets à l'écran
 	// Compteur de points : si après balayage Diamant_Restant est égal à 0 alors la porte devient ouverte
+
     Diamant_Restant = 0;
         
     // Chargement des sprites

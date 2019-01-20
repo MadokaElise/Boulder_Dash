@@ -20,10 +20,10 @@ int main(void)
 	SDL_WaitEvent(&event);
 	
     SDL_Init(SDL_INIT_VIDEO);
-    // chargement de l'icone
+    // Chargement de l'icône
 	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); 
     
-    // chargement de la fenetre
+    // Chargement de la fenêtre
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
 	
@@ -34,10 +34,10 @@ int main(void)
 			if(choix==3)
 			{
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-				//	affichage score
+				// Affichage du score
 			}else if(choix==4)
 			{
-				// affichage aide
+				// Affichage de l'aide
 			
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				regle = IMG_Load("regle.bmp");
@@ -58,7 +58,6 @@ int main(void)
 					{	
 						case SDL_QUIT:
 						choix=5;
-						//SDL_Quit();//QUITTER
 						break;
 						case SDL_MOUSEBUTTONUP:
 							if (event.button.button == SDL_BUTTON_LEFT)

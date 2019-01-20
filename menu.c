@@ -42,7 +42,6 @@ void menu(int* choix, SDL_Surface *ecran)
     positionBoutonFin.y = 500;
 	
 	// Affichage
-
 	SDL_BlitSurface(menu, NULL, ecran, &positionMenu);
 	SDL_BlitSurface(boutonjouer, NULL, ecran, &positionBoutonJouer);
 	SDL_BlitSurface(boutonscore, NULL, ecran, &positionBoutonScore);
@@ -58,7 +57,7 @@ void menu(int* choix, SDL_Surface *ecran)
                 *choix = 1; //QUITTER
                 break;
            
-            case SDL_MOUSEBUTTONUP: /* Clic de la souris */
+            case SDL_MOUSEBUTTONUP: // Clic de la souris
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					x=event.button.x;

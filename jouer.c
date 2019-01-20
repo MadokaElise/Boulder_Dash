@@ -7,21 +7,21 @@
 #include "affichage.h"
 #include "constante.h"
 
-// gestion de la gravite rochr dans le vide et rocher en suspenstion sur un autre
-//( rocher et dimant subissent les meme regle de gravite)
+// Gestion de la gravité d'un rocher dans le vide et d'un rocher en équilibre sur un autre
+// (rocher et dimant subissent les mêmes règles de gravité)
 int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 {
 	
 	int i,j;
-	// ballayage de la map  à l'envers à la rocher de rocher et diamant
+	// Balayage de la map à l'envers à la recherche de rocher et de diamant
 	for (i = NB_LIGNE ; i>=0 ; i--)
     {
         for (j = NB_COLONNE ; j>=0 ; j--)
         {
-			// recherche de diamant qui va devoir etre chager en rocher en mouvement
+			// Recherche d'un rocher (ou diamant) qui va devoir etre changé en rocher (ou diamant) en mouvement
             if ( (tab[i][j] == ROCHER) || (tab[i][j] == DIAMANT ))
             {
-				// test si le rocher chutent toud droit car il se trouve en suspention dans le vide
+				// Test si le rocher (ou diamant) se trouve dans le vide
                 if (tab[i+1][j] == GALERIE) 
                 {
 					
@@ -36,7 +36,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 					tab[i][j]=GALERIE;
 					
 				}
-				// test si le rocher est en equillibre sur un autre ou non et si des galerie se trouve autour de lui a droite ou a gauche
+				// Test si le rocher (ou diamant) est en équillibre sur un autre et si des galeries se trouvent autour de lui à droite puis à gauche
                 if ( (tab[i+1][j+1] == GALERIE) && (tab[i][j+1] == GALERIE) && ((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
                 {
 					
@@ -49,10 +49,8 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 						tab[i][j+1]=DIAMANTMVT;
 					}
 					tab[i][j]=GALERIE;
-					
 				}
-				
-				 if ( (tab[i+1][j-1] == GALERIE) && (tab[i][j-1] == GALERIE) &&((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
+				if ( (tab[i+1][j-1] == GALERIE) && (tab[i][j-1] == GALERIE) &&((tab[i+1][j]==ROCHER) || (tab[i+1][j]==DIAMANT) ) )
                 {
 					
 					if  (tab[i][j] == ROCHER)
@@ -64,14 +62,13 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 						tab[i][j-1]=DIAMANTMVT;
 					}
 					tab[i][j]=GALERIE;
-					
 				}
                 
             }
-            // gestion des rocher en mouvement 
+            // Gestion des rochers (ou diamants) en mouvement 
             if ( (tab[i][j] == ROCHERMVT) || (tab[i][j] == DIAMANTMVT ))
             {
-				// test si le rocher reste en mouvement car toujours en suspention dans le vide
+				// Test si le rocher (ou diamant) reste en mouvement car toujours dans le vide
 				if (tab[i+1][j] == GALERIE) 
                 {
 					
@@ -86,7 +83,7 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 					tab[i][j]=GALERIE;
 					
 				}
-				// si le rocher tombe sur un obsatacle sa chute s'arrete
+				// Test si le rocher (ou diamant) tombe sur un obsatacle, sa chute s'arrete
                 if (tab[i+1][j] != GALERIE) 
                 {
 					if (tab[i+1][j] == BONHOMME)
@@ -117,53 +114,65 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 	switch(orientation)
     {
         case GAUCHE: /** Y est l'abscisse **/
-			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
+			// Vérification :
+			// => dépassement de la zone de jeu
+			// => présence d'un bloc incassable
+			// => présence d'un rocher
+			// => porte fermée
 			if ((pos->y - 1 < 0) || (tab[pos->x][pos->y - 1]== INCASSABLE)|| (tab[pos->x][pos->y - 1]== ROCHER)|| (tab[pos->x][pos->y - 1]== PORTE_FERME))
 			{
-				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
+				// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur monte
+			// Si la case est accessible, le joueur va à gauche
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y-1]=BONHOMME;
 			pos->y--;
 			break;
 		case DROITE:
-			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
+			// Vérification :
+			// => dépassement de la zone de jeu
+			// => présence d'un bloc incassable
+			// => présence d'un rocher
+			// => porte fermée
 			if ((pos->y + 2 > NB_COLONNE) || (tab[pos->x][pos->y + 1]== INCASSABLE)|| (tab[pos->x][pos->y + 1]== ROCHER)|| (tab[pos->x][pos->y + 1]== PORTE_FERME))
 			{
-				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
+				// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur descent
+			// Si la case est accessible, le joueur va à droite
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x][pos->y+1]=BONHOMME;
 			pos->y++;
 			break;
 		case HAUT:
-			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
+			// Vérification :
+			// => dépassement de la zone de jeu
+			// => présence d'un bloc incassable
+			// => présence d'un rocher
+			// => porte fermée
 			if ((pos->x - 1 < 0) || (tab[pos->x - 1][pos->y]== INCASSABLE)|| (tab[pos->x - 1][pos->y]== ROCHER)|| (tab[pos->x - 1][pos->y]== PORTE_FERME))
 			{
-				// si la case ou le joueur veut se rendre est interdite on sort de la boucle
+				// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur monte
+			// Si la case est accessible, le joueur monte
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x - 1][pos->y]=BONHOMME;
 			pos->x--;
 			break;
 		case BAS:
-			// Verification
-			// Depacement de la zone de jeu ou bloc incassable ou rocher ou la porte fermee:
+			// Vérification :
+			// => dépassement de la zone de jeu
+			// => présence d'un bloc incassable
+			// => présence d'un rocher
+			// => porte fermée
 			if ((pos->x +2 >NB_LIGNE) || (tab[pos->x + 1][pos->y]== INCASSABLE)|| (tab[pos->x + 1][pos->y]== ROCHER)|| (tab[pos->x + 1][pos->y]== PORTE_FERME))
 			{
-				// si la case ou le joueur veut se rendre est indertite on sort de la boucle
+				// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 				break;
 			}
-			// si la case est accessible le joueur monte
+			// Si la case est accessible, le joueur descend
 			tab[pos->x ][pos->y]=GALERIE;
 			tab[pos->x + 1][pos->y]=BONHOMME;
 			pos->x++;
@@ -181,7 +190,7 @@ void jouer (SDL_Surface *ecran)
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	int i, j, x,y, diamant, continuer=0, mort ;
-	// initialisation de la map
+	// Initialisation de la map
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
@@ -212,7 +221,7 @@ void jouer (SDL_Surface *ecran)
 
 	diamant = affichage(tab,ecran);
 	
-	// Recherche de la position de depart du bonhomme
+	// Recherche de la position de départ du bonhomme
 	for (i = 0 ; i < NB_COLONNE ; i++)
     {
         for (j = 0 ; j < NB_LIGNE ; j++)
@@ -238,16 +247,14 @@ void jouer (SDL_Surface *ecran)
 		{
 			
 			case SDL_QUIT:
-				 
-        printf(" continuer %d\n",continuer);
-		
 				continuer = 1;
 				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						continuer = 1; // quitter la fenetre de jeu et retourner au menu principale
+					     // Quitter la fenêtre de jeu et retourner au menu principal
+						continuer = 1;
 						break;
 					case SDLK_UP:
 						mouvement_joueur(tab, HAUT, &position_joueur);
@@ -273,24 +280,24 @@ void jouer (SDL_Surface *ecran)
 	
 		if (mort == 1)
 		{
-			// on quitte la page de jeu pour retourner au menu principale
+			// Quitter la fenêtre de jeu et retourner au menu principal
 			continuer=1;
 			SDL_BlitSurface(gameover, NULL, ecran, &positiongameover);
 			SDL_Flip(ecran);
-			// l'image "gameover" s'affiche 2,5 secondes
+			// Affichage de l'image "gameover" pendant 2,5 secondes
 			SDL_Delay(2500);
 			
 			
 		}
 		
-		// Affichage de l'ecran de jeu
+		// Affichage de l'écran de jeu
 		diamant = affichage(tab,ecran);
 		
 		SDL_Flip(ecran);
         // Effacement de l'écran
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 
-        // Affichage de l'ecran de jeu
+        // Affichage de l'écran de jeu
 		diamant = affichage(tab,ecran);
 		SDL_Flip(ecran);
 
@@ -298,14 +305,14 @@ void jouer (SDL_Surface *ecran)
         if (diamant==0)
         {
 			
-			// Recherche de la position de de la porte ferme pour la rendre ouverte
+			// Recherche de la position de de la porte fermée pour la rendre ouverte
 			for (i = 0 ; i < NB_COLONNE ; i++)
 			{
 				for (j = 0 ; j < NB_LIGNE ; j++)
 				{
 					if (tab[j][i] == PORTE_FERME) 
 					{
-						// la porte fermer est remplacer par la porte ouverte
+						// La porte fermeée est remplacée par la porte ouverte
 						tab[j][i] = PORTE_OUVERTE;
 						y=i;
 						x=j;
@@ -317,7 +324,7 @@ void jouer (SDL_Surface *ecran)
 
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
-			// quitte la fenetre de jeu car le joueur a gagné et retourne au menu principal
+			// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
 			continuer =1;
 		}
 
