@@ -7,22 +7,19 @@
 
 #include "constante.h"
 
-
-
-// affichage de la map et la fonction retourne  le nombre de diamant restant sur la map pour savoir si la porte doit s'ouvrir ou non
+// Fonction qui affichage la map et retourne le nombre de diamant restant sur la map pour savoir si la porte doit s'ouvrir ou non
 int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 {
-	// creation des surface
+	// Création des surfaces
 	SDL_Surface *terre = NULL, *incassable = NULL, *diamant = NULL, *porte_ouverte = NULL,
 	*porte_ferme=NULL, *bonhomme=NULL, *rocher=NULL, *rocher_mvt=NULL, *diamant_mvt=NULL;
-	// creation de la variable position qui cible une surface
+	// Création de la variable position qui cible une surface
 	SDL_Rect position;
 	
 	int i, j,Diamant_Restant; 
 	
 	// Placement des objets à l'écran
-	// Conteur de point si apres ballayage Diamant_Restant =0  
-	//alors la porte devient ouverte
+	// Compteur de points : si après balayage Diamant_Restant est égal à 0 alors la porte devient ouverte
     Diamant_Restant = 0;
         
     // Chargement des sprites
@@ -36,7 +33,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
     rocher_mvt = IMG_Load("rocher_mvt.bmp");
     diamant_mvt = IMG_Load("diamant_mvt.bmp");
        
-	// Ballayage du tableau pour placer les sprites sur l'ecran
+	// Balayage du tableau pour placer les sprites sur l'écran
 	for (i = 0 ; i < NB_COLONNE ; i++)
     {
 		for (j = 0 ; j < NB_LIGNE ; j++)
@@ -79,7 +76,7 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran)
 			}
 		}
 	}
-	// mise a jour de l'ecran
+	// Mise a jour de l'écran
 	SDL_Flip(ecran);
 	return Diamant_Restant;
 }
