@@ -88,7 +88,6 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
                 {
 					if (tab[i+1][j] == BONHOMME)
 					{
-						printf ("game over !! \n");
 						return mort =1;
 					}
 					if  (tab[i][j] == ROCHERMVT)

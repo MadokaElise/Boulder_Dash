@@ -33,6 +33,7 @@ int main(void)
 			menu(&choix, ecran);
 			if(choix==3)
 			{
+				choix=5;
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				// Affichage du score
 			}else if(choix==4)
@@ -81,7 +82,9 @@ int main(void)
 		
 		
 		}else if(choix==2)
-		{	
+		{		
+			// Effacement de l'écran
+			SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 			SDL_Flip(ecran);
 			jouer(ecran);
 		}

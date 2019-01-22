@@ -1,5 +1,13 @@
 # Boulder_Dash
-projet CPI2
+
+projet CPI2 (2018/2019)
 
 
-pour compiler : gcc -Wall  main.c constante.h affichage.c jouer.c -o main $(sdl-config --cflags --libs) -lSDL_image
+Casaccia Elise
+Cloos Richard
+
+
+pour compiler : taper "make" dans le terminale
+pour executer : taper ./boulder
+
+BON JEU !
