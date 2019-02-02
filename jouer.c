@@ -327,7 +327,7 @@ void jouer (SDL_Surface *ecran)
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
 			// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
-			SDL_BlitSurface(win, NULL, ecran, &positiongameover);
+			SDL_BlitSurface(win, NULL, ecran, &positionwin);
 			SDL_Flip(ecran);
 			// Affichage de l'image "gameover" pendant 2,5 secondes
 			SDL_Delay(2500);
