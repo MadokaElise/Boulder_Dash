@@ -186,7 +186,9 @@ void jouer (SDL_Surface *ecran)
 	SDL_Surface *gameover = NULL, *win =NULL;
 	gameover = IMG_Load("game_over.bmp");
 	win = IMG_Load("win.bmp");
-	SDL_Rect positiongameover;
+	SDL_Rect positiongameover, positionwin;
+	positionwin.x= 300;
+	positionwin.y=30;
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	int i, j, x,y, diamant, continuer=0, mort ;
