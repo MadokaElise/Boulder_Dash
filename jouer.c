@@ -183,8 +183,9 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 void jouer (SDL_Surface *ecran) 
 {
 	void SDL_Delay(Uint32 ms);
-	SDL_Surface *gameover = NULL;
+	SDL_Surface *gameover = NULL, *win =NULL;
 	gameover = IMG_Load("game_over.bmp");
+	win = IMG_Load("win.bmp");
 	SDL_Rect positiongameover;
 	positiongameover.x= 300;
 	positiongameover.y=50;
@@ -324,6 +325,10 @@ void jouer (SDL_Surface *ecran)
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
 			// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
+			SDL_BlitSurface(win, NULL, ecran, &positiongameover);
+			SDL_Flip(ecran);
+			// Affichage de l'image "gameover" pendant 2,5 secondes
+			SDL_Delay(2500);
 			continuer =1;
 		}
 
