@@ -9,8 +9,21 @@
 #include "affichage.h"
 #include "jouer.h"
 #include "menu.h"
+#include "structure.h"
 
-
+void chargement (Ressource *sprite)
+{
+	sprite->terre = IMG_Load("Terre_1.bmp");
+    sprite->incassable = IMG_Load("Terre_3.bmp");
+    sprite->diamant= IMG_Load("diamant_2.bmp");
+    sprite->porte_ouverte = IMG_Load("porte_ouverte.bmp");
+    sprite->porte_ferme= IMG_Load("porte_ferme.bmp");
+    sprite->bonhomme= IMG_Load("perso_1.bmp");
+    sprite->rocher = IMG_Load("rocher_1.bmp");
+    sprite->rocher_mvt = IMG_Load("rocher_mvt.bmp");
+    sprite->diamant_mvt = IMG_Load("diamant_mvt.bmp");
+	return;
+}
 
 int main(void)
 {
@@ -23,7 +36,9 @@ int main(void)
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
     // Chargement de l'icône
 	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); 
-    
+    // chargement des sprites de jeu
+	Ressource sprite;
+	chargement (&sprite);
     // Chargement de la fenêtre
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
@@ -87,7 +102,7 @@ int main(void)
 			// Effacement de l'écran
 			SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 			SDL_Flip(ecran);
-			jouer(ecran);
+			jouer(ecran, &sprite);
 		}
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 		

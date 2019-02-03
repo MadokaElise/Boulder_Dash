@@ -6,6 +6,7 @@
 
 #include "affichage.h"
 #include "constante.h"
+#include "structure.h"
 
 // Gestion de la gravité d'un rocher dans le vide et d'un rocher en équilibre sur un autre
 // (rocher et dimant subissent les mêmes règles de gravité)
@@ -204,7 +205,7 @@ Uint32 my_callbackfunc(Uint32 interval, void *param)
 
 
 
-void jouer (SDL_Surface *ecran) 
+void jouer (SDL_Surface *ecran, Ressource * sprite) 
 {
 	void SDL_Delay(Uint32 ms);
 	//initialisation suface
@@ -253,7 +254,7 @@ void jouer (SDL_Surface *ecran)
 	SDL_Event event;
 	
 
-	diamant = affichage(tab,ecran);
+	diamant = affichage(tab,ecran,sprite);
 	
 	// Recherche de la position de départ du bonhomme
 	for (i = 0 ; i < NB_COLONNE ; i++)
@@ -314,7 +315,14 @@ void jouer (SDL_Surface *ecran)
 				}
 				break;	
 		}
-	
+		
+        // Effacement de l'écran
+        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+
+		// Affichage de l'écran de jeu
+		diamant = affichage(tab,ecran, sprite);
+		// Actualisation de l'ecran
+		SDL_Flip(ecran);
 		if (mort == 1)
 		{
 			// Quitter la fenêtre de jeu et retourner au menu principal
@@ -327,16 +335,10 @@ void jouer (SDL_Surface *ecran)
 			
 		}
 		
-		// Affichage de l'écran de jeu
-		diamant = affichage(tab,ecran);
 		
-		SDL_Flip(ecran);
-        // Effacement de l'écran
-        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-
-        // Affichage de l'écran de jeu
-		diamant = affichage(tab,ecran);
-		SDL_Flip(ecran);
+		
+		
+      
 
         // Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
         if (diamant==0)
