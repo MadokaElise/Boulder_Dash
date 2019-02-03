@@ -180,9 +180,34 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		
 }
 
+
+
+
+
+
+Uint32 my_callbackfunc(Uint32 interval, void *param)
+{
+	 SDL_Event event;
+     SDL_UserEvent userevent;
+
+     userevent.type = SDL_USEREVENT;
+     userevent.code = 0;
+     userevent.data1 = NULL;
+     userevent.data2 = NULL;
+     event.type = SDL_USEREVENT;
+     event.user = userevent;
+ 
+     SDL_PushEvent(&event);
+     return(interval);
+}
+
+
+
+
 void jouer (SDL_Surface *ecran) 
 {
 	void SDL_Delay(Uint32 ms);
+	//initialisation suface
 	SDL_Surface *gameover = NULL, *win =NULL;
 	gameover = IMG_Load("game_over.bmp");
 	win = IMG_Load("win.bmp");
@@ -191,7 +216,14 @@ void jouer (SDL_Surface *ecran)
 	positionwin.y=30;
 	positiongameover.x= 300;
 	positiongameover.y=50;
+	// initialisatio variable diverse
 	int i, j, x,y, diamant, continuer=0, mort ;
+	// Initialisation pour timer 
+	
+	int delay;
+	SDL_TimerID my_timer_id;
+	delay = 200;  /* To round it down to the nearest 10 ms */
+	my_timer_id = SDL_AddTimer(delay, my_callbackfunc, NULL);
 	// Initialisation de la map
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
@@ -247,10 +279,17 @@ void jouer (SDL_Surface *ecran)
        
 		switch(event.type)
 		{
-			
+			// cas de la croix rouge de la fenetre
 			case SDL_QUIT:
 				continuer = 1;
 				break;
+			
+			// cas du timer
+			case SDL_USEREVENT:
+				mort =gravitedirect(tab, mort);
+				break;
+
+			//cas touche de clavier appuyer
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym)
 				{
@@ -273,12 +312,8 @@ void jouer (SDL_Surface *ecran)
 					default:
 						break;
 				}
-				
-				break;
-				
+				break;	
 		}
-		
-		mort =gravitedirect(tab, mort);
 	
 		if (mort == 1)
 		{
@@ -335,5 +370,8 @@ void jouer (SDL_Surface *ecran)
 		}
 
 	}
+	SDL_RemoveTimer(my_timer_id);
+	SDL_FreeSurface(gameover);
+	SDL_FreeSurface(win);
 }
 

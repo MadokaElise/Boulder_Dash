@@ -11,6 +11,7 @@
 #include "menu.h"
 
 
+
 int main(void)
 {
 	int choix=0,x,y;
@@ -18,8 +19,8 @@ int main(void)
     SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL;
 	SDL_Rect positionRegle, positionBoutonFin;
 	SDL_WaitEvent(&event);
-	
-    SDL_Init(SDL_INIT_VIDEO);
+	// chargement des sous systeme video et timer
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
     // Chargement de l'icône
 	SDL_WM_SetIcon(IMG_Load("Terre_1.bmp"), NULL); 
     
