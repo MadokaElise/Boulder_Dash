@@ -183,7 +183,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 
 
 // fonction qui gere le deplacement des enemis
-// l'enemi test d'abord sur sa droite si il peut pas en haut puis a gauche et enfin en bas pour avancer
+// EXPLIQUER L'ALGO PLUS TARD !!!
 int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 {
 	int i,j;
@@ -203,14 +203,14 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				if (tab[i][j+1]==GALERIE)	
 				{
 					tab[i][j]= GALERIE ;
-					tab[i][j+1]= ENEMI_DROITE ;					}
+					tab[i][j+1]= ENEMI_DROITEMVT ;					}
 				else if (tab[i][j+1]==BONHOMME)	
 				{
 					mort=1;
 				}	
 				else 
 				{
-					tab[i][j] =ENEMI_HAUT;
+					tab[i][j] =ENEMI_HAUTMVT;
 				}
 
 			}
@@ -221,7 +221,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				if (tab[i-1][j]==GALERIE)	
 				{
 					tab[i][j]= GALERIE ;
-					tab[i-1][j]= ENEMI_HAUT ;
+					tab[i-1][j]= ENEMI_HAUTMVT ;
 					
 				}
 				else if (tab[i-1][j]==BONHOMME)
@@ -230,7 +230,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				}
 				else 
 				{
-					tab[i][j] =ENEMI_GAUCHE;
+					tab[i][j] =ENEMI_GAUCHEMVT;
 				}
 			}
 
@@ -241,7 +241,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				if (tab[i][j-1]==GALERIE)	
 				{
 					tab[i][j]= GALERIE ;
-					tab[i][j-1]= ENEMI_GAUCHE ;
+					tab[i][j-1]= ENEMI_GAUCHEMVT ;
 				
 				}
 				else if (tab[i][j-1]==BONHOMME)	
@@ -250,7 +250,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				}
 				else 
 				{
-					tab[i][j] =ENEMI_BAS;
+					tab[i][j] =ENEMI_BASMVT;
 				}
 			}
 			if (tab[i][j]==ENEMI_BAS)
@@ -260,7 +260,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				if (tab[i+1][j]==GALERIE)	
 				{
 					tab[i][j]= GALERIE ;
-					tab[i+1][j]= ENEMI_BAS ;
+					tab[i+1][j]= ENEMI_BASMVT ;
 				}
 				else if (tab[i+1][j]==BONHOMME)	
 				{
@@ -268,9 +268,36 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				}
 				else 
 				{
-					tab[i][j] =ENEMI_DROITE;
+					tab[i][j] =ENEMI_DROITEMVT;
 				}
 			}	
+		}
+	}
+
+	// enemi en mouvement redevienne des enemi
+	for (i = 0 ; i < NB_LIGNE ; i++)
+    {
+			
+		
+        for (j = 0 ; j < NB_COLONNE ; j++)
+        {
+		if (tab[i][j]==ENEMI_BASMVT)
+			{
+				tab[i][j]= ENEMI_BAS;
+			}
+		if (tab[i][j]==ENEMI_HAUTMVT)
+			{
+				tab[i][j]= ENEMI_HAUT;
+			}
+		if (tab[i][j]==ENEMI_DROITEMVT)
+			{
+				tab[i][j]= ENEMI_DROITE;
+			}
+		if (tab[i][j]==ENEMI_GAUCHEMVT)
+			{
+				tab[i][j]= ENEMI_GAUCHE;
+			}			
+
 		}
 	}
 	//printf("COINCER \n");
@@ -330,9 +357,9 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	{'r','t','r','r','t','t','t','t','t','t','t','t','t','r','r','t','t','r','t','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t','r',' ','t'},
 	{'t','t','t','r','t','t','r','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t',' ','r','t','t','t','t','t','t','t','t','r','t','r','r','t'},
 	{'i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','t','t','t','r','t','t','r','t'},
-	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r',' ',' ',' ','t','t','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
-	{'t','t','d','t','t','t','t','t','r','t','t','t','t','t',' ','t',' ',' ',' ','t','t','t','t','r',' ',' ','r','t','t','d','t','t','t','t','r','t','t','t'},
-	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t',' ',' ','e','t','t','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
+	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r',' ',' ',' ',' ',' ','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
+	{'t','t','d','t','t','t','t','t','r','t','t','t','t','t',' ','t',' ',' ',' ',' ',' ','t','t','r',' ',' ','r','t','t','d','t','t','t','t','r','t','t','t'},
+	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t',' ',' ','e',' ',' ','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
 	{'t',' ','t','t','t','t','t','r','t','t','t','t','t','t','t','t','r','r','t','t','t','t','t','t','t','t','r','t','t','r','t','d','t','t','t','t',' ','t'},
 	{'t','r','t','t','t','t','t','r','t',' ',' ','t','t','t','t','t','r','t','r','d','t','t','d','t','t','t','t','r','t','t','t','r','t','t','d','t','r','t'},
 	{'t','d','r','t',' ','t','t','t','t','t','t','t','t','t','t','t','t','r','r','r','t','t','r','t','t','t','t','t','t','t','t','d','t','t','t','t','t','r'},

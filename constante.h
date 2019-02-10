@@ -9,20 +9,24 @@
     #define HAUTEUR_FENETRE     TAILLE_BLOC * NB_LIGNE
 	
 	// Constante des differents blocs
-	#define INCASSABLE      'i'
-	#define ROCHER          'r'
-	#define DIAMANT         'd'
-	#define TERRE           't'
-	#define BONHOMME        'b'
-	#define PORTE_FERME     'f'
-	#define PORTE_OUVERTE   'o'
-	#define GALERIE         ' '
-	#define ROCHERMVT       'm'
-	#define DIAMANTMVT      'v'
-	#define ENEMI_DROITE    'e'
-	#define ENEMI_GAUCHE    'g'       
-	#define ENEMI_BAS       'a'
-	#define ENEMI_HAUT      'u'
+	#define INCASSABLE        'i'
+	#define ROCHER            'r'
+	#define DIAMANT           'd'
+	#define TERRE             't'
+	#define BONHOMME          'b'
+	#define PORTE_FERME       'f'
+	#define PORTE_OUVERTE     'o'
+	#define GALERIE           ' '
+	#define ROCHERMVT         'm'
+	#define DIAMANTMVT        'v'
+	#define ENEMI_DROITE      'e'
+	#define ENEMI_GAUCHE      'g'       
+	#define ENEMI_BAS         'a'
+	#define ENEMI_HAUT        'u'
+	#define ENEMI_DROITEMVT   'E'
+	#define ENEMI_GAUCHEMVT   'G'       
+	#define ENEMI_BASMVT      'A'
+	#define ENEMI_HAUTMVT     'U'
 	
 	
 	// Constante d'orientation
