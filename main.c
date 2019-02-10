@@ -22,6 +22,7 @@ void chargement (Ressource *sprite)
     sprite->rocher = IMG_Load("rocher_1.bmp");
     sprite->rocher_mvt = IMG_Load("rocher_mvt.bmp");
     sprite->diamant_mvt = IMG_Load("diamant_mvt.bmp");
+	sprite->enemi = IMG_Load("enemi.bmp");
 	return;
 }
 

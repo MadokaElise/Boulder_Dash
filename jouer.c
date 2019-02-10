@@ -182,6 +182,101 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 }
 
 
+// fonction qui gere le deplacement des enemis
+// l'enemi test d'abord sur sa droite si il peut pas en haut puis a gauche et enfin en bas pour avancer
+int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
+{
+	int i,j;
+	
+
+	for (i = 0 ; i < NB_LIGNE ; i++)
+    {
+        for (j = 0 ; j < NB_COLONNE ; j++)
+        {
+			if (tab[i][j]==ENEMI_DROITE)
+			{
+
+					// test si il peut allez sur sa droite
+				
+				if (tab[i][j+1]==GALERIE)	
+				{
+					tab[i][j]= GALERIE ;
+					tab[i][j+1]= ENEMI_DROITE ;					}
+				else if (tab[i][j+1]==BONHOMME)	
+				{
+					mort=1;
+				}	
+				else 
+				{
+					tab[i][j] =ENEMI_HAUT;
+				}
+			}
+			if (tab[i][j]==ENEMI_HAUT)
+			{
+				// test si il peut allez en haut
+
+				if (tab[i-1][j]==GALERIE)	
+				{
+					tab[i][j]= GALERIE ;
+					tab[i-1][j]= ENEMI_HAUT ;
+					
+				}
+				else if (tab[i-1][j]==BONHOMME)
+				{
+					mort=1;
+				}
+				else 
+				{
+					tab[i][j] =ENEMI_GAUCHE;
+				}
+			}
+
+			if (tab[i][j]==ENEMI_GAUCHE)
+			{	
+				// test si il peut allez sur sa gauche
+
+				if (tab[i][j-1]==GALERIE)	
+				{
+					tab[i][j]= GALERIE ;
+					tab[i][j-1]= ENEMI_GAUCHE ;
+				
+				}
+				else if (tab[i][j-1]==BONHOMME)	
+				{
+					mort=1;
+				}
+				else 
+				{
+					tab[i][j] =ENEMI_BAS;
+				}
+			}
+			if (tab[i][j]==ENEMI_BAS)
+			{	
+				// test si il peut allez en bas
+
+				if (tab[i+1][j]==GALERIE)	
+				{
+					tab[i][j]= GALERIE ;
+					tab[i+1][j]= ENEMI_BAS ;
+				}
+				else if (tab[i+1][j]==BONHOMME)	
+				{
+					mort=1;
+				}
+				else 
+				{
+					tab[i][j] =ENEMI_DROITE;
+				}
+			}
+				
+			
+			
+		}
+	}
+	//printf("COINCER \n");
+
+	return mort;
+}
 
 
 
@@ -235,9 +330,9 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	{'r','t','r','r','t','t','t','t','t','t','t','t','t','r','r','t','t','r','t','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t','r',' ','t'},
 	{'t','t','t','r','t','t','r','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t',' ','r','t','t','t','t','t','t','t','t','r','t','r','r','t'},
 	{'i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','t','t','t','r','t','t','r','t'},
-	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r','t','t','t','t','t','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
-	{'t','t','d','t','t','t','t','t','r','t','t','t','t','t',' ','t','t','t','t','t','t','t','t','r',' ',' ','r','t','t','d','t','t','t','t','r','t','t','t'},
-	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t','t','t','t','t','t','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
+	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r',' ',' ',' ','t','t','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
+	{'t','t','d','t','t','t','t','t','r','t','t','t','t','t',' ','t',' ',' ',' ','t','t','t','t','r',' ',' ','r','t','t','d','t','t','t','t','r','t','t','t'},
+	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t',' ',' ','e','t','t','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
 	{'t',' ','t','t','t','t','t','r','t','t','t','t','t','t','t','t','r','r','t','t','t','t','t','t','t','t','r','t','t','r','t','d','t','t','t','t',' ','t'},
 	{'t','r','t','t','t','t','t','r','t',' ',' ','t','t','t','t','t','r','t','r','d','t','t','d','t','t','t','t','r','t','t','t','r','t','t','d','t','r','t'},
 	{'t','d','r','t',' ','t','t','t','t','t','t','t','t','t','t','t','t','r','r','r','t','t','r','t','t','t','t','t','t','t','t','d','t','t','t','t','t','r'},
@@ -288,6 +383,7 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 			// cas du timer
 			case SDL_USEREVENT:
 				mort =gravitedirect(tab, mort);
+				mort =gestion_enemi(tab,mort);
 				break;
 
 			//cas touche de clavier appuyer

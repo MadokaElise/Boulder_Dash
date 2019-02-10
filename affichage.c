@@ -65,6 +65,18 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran, Ressource * s
 				case ROCHERMVT:
 					SDL_BlitSurface(sprite->rocher_mvt, NULL, ecran, &position);
 					break;
+				case ENEMI_BAS:
+					SDL_BlitSurface(sprite->enemi, NULL, ecran, &position);
+					break;
+				case ENEMI_DROITE:
+					SDL_BlitSurface(sprite->enemi, NULL, ecran, &position);
+					break;
+				case ENEMI_GAUCHE:
+					SDL_BlitSurface(sprite->enemi, NULL, ecran, &position);
+					break;
+				case ENEMI_HAUT:
+					SDL_BlitSurface(sprite->enemi, NULL, ecran, &position);
+					break;
                     
 			}
 		}

@@ -15,6 +15,7 @@ typedef struct
 	SDL_Surface *rocher; 
 	SDL_Surface *rocher_mvt;
 	SDL_Surface *diamant_mvt;
+	SDL_Surface *enemi;
 
 } Ressource ;
 

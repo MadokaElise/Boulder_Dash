@@ -19,6 +19,10 @@
 	#define GALERIE         ' '
 	#define ROCHERMVT       'm'
 	#define DIAMANTMVT      'v'
+	#define ENEMI_DROITE    'e'
+	#define ENEMI_GAUCHE    'g'       
+	#define ENEMI_BAS       'a'
+	#define ENEMI_HAUT      'u'
 	
 	
 	// Constante d'orientation
