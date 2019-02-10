@@ -191,6 +191,8 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 
 	for (i = 0 ; i < NB_LIGNE ; i++)
     {
+			
+		
         for (j = 0 ; j < NB_COLONNE ; j++)
         {
 			if (tab[i][j]==ENEMI_DROITE)
@@ -210,6 +212,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				{
 					tab[i][j] =ENEMI_HAUT;
 				}
+
 			}
 			if (tab[i][j]==ENEMI_HAUT)
 			{
@@ -267,10 +270,7 @@ int gestion_enemi (char tab[NB_LIGNE][NB_COLONNE], int mort)
 				{
 					tab[i][j] =ENEMI_DROITE;
 				}
-			}
-				
-			
-			
+			}	
 		}
 	}
 	//printf("COINCER \n");
