@@ -499,4 +499,3 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	SDL_FreeSurface(gameover);
 	SDL_FreeSurface(win);
 }
-
