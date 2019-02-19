@@ -8,6 +8,62 @@
 #include "constante.h"
 #include "structure.h"
 
+
+
+
+int explosion_enemi (char tab[NB_LIGNE][NB_COLONNE], int i, int j, int mort)
+{
+	
+	if(tab[i][j]== BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i][j+1] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i][j-1] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i+1][j+1] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i+1][j] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i-1][j] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i-1][j-1] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i+1][j-1] ==BONHOMME)
+	{
+		mort=2;
+	}
+	if(tab[i-1][j+1] ==BONHOMME)
+	{
+		mort=2;
+	}
+
+	tab[i][j] = EXPLOSION;
+	tab[i+1][j+1] = EXPLOSION;
+	tab[i+1][j] = EXPLOSION;
+	tab[i][j+1] = EXPLOSION;
+	tab[i-1][j] = EXPLOSION;
+	tab[i][j-1] = EXPLOSION;
+	tab[i-1][j-1] = EXPLOSION;
+	tab[i-1][j+1] = EXPLOSION;
+	tab[i+1][j-1] = EXPLOSION;
+
+	return mort;
+}
+
 // Gestion de la gravité d'un rocher dans le vide et d'un rocher en équilibre sur un autre
 // (rocher et dimant subissent les mêmes règles de gravité)
 int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
@@ -19,6 +75,10 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
     {
         for (j = NB_COLONNE ; j>=0 ; j--)
         {
+			if(tab[i][j]==EXPLOSION)
+			{
+				tab[i][j] =GALERIE;
+			}
 			// Recherche d'un rocher (ou diamant) qui va devoir etre changé en rocher (ou diamant) en mouvement
             if ( (tab[i][j] == ROCHER) || (tab[i][j] == DIAMANT ))
             {
@@ -90,6 +150,13 @@ int gravitedirect (char tab[NB_LIGNE][NB_COLONNE], int mort)
 					if (tab[i+1][j] == BONHOMME)
 					{
 						return mort =1;
+					}
+					if ((tab[i+1][j] == ENEMI_BAS) ||(tab[i+1][j] ==  ENEMI_DROITE )||(tab[i+1][j] == ENEMI_GAUCHE) || (tab[i+1][j] == ENEMI_HAUT ))
+					{
+						
+						mort=explosion_enemi(tab,i+1 ,j,mort);
+						
+						return mort;
 					}
 					if  (tab[i][j] == ROCHERMVT)
 					{
@@ -340,7 +407,7 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	// initialisatio variable diverse
-	int i, j, x,y, diamant, continuer=0, mort ;
+	int i, j, x,y, diamant, continuer=0, mort=0 ;
 	// Initialisation pour timer 
 	
 	int delay;
@@ -351,17 +418,17 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
-	{'t','r','b','r','t','t','t','t','t','t',' ','t','t','t','t','t','t','t','t','t','r','d','t','t','r','t','t','t','t',' ','t','t','t','t','t',' ','t','t'},
-	{'t','t','t','t','t','t','t','t','t','t',' ','t','t',' ','t','t','t','t','t','r','t','r','t','t','r','t','t','t','t','t','t','t','t','r','t','t','t','t'},
+	{'t','r',' ','r','t','t','t','t','t','t',' ','t','t','t','t','t','t','t','t','t','r','d','t','t','r','t','t','t','t',' ','t','t','t','t','t',' ','t','t'},
+	{'t','t','t','t','t','t','t','t','t','t','b','t','t',' ','t','t','t','t','t','r',' ','r','t','t','r','t','t','t','t','t','t','t','t','r','t','t','t','t'},
 	{'r','t',' ',' ','t','t','t','t','t','t','t','t','t','r','t','t','t','t','t','t','r','t','t','r','t','t','t','t','t','r','t','t','r','t','t','t','t','t'},
 	{'r','t','r','r','t','t','t','t','t','t','t','t','t','r','r','t','t','r','t','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t','r',' ','t'},
 	{'t','t','t','r','t','t','r','t','t','t','t','t','t','t','t','r','t','t','t','t','t','r','t',' ','r','t','t','t','t','t','t','t','t','r','t','r','r','t'},
 	{'i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','t','t','t','r','t','t','r','t'},
-	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r',' ',' ',' ',' ',' ','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
+	{'t',' ','t','t','t','t','t','t','d','t',' ','t','t','r','t','r','b',' ','r','r','r','t','t','t','t','t','d','t','r',' ','t','t','t','t','t','t','r','t'},
 	{'t','t','d','t','t','t','t','t','r','t','t','t','t','t',' ','t',' ',' ',' ',' ',' ','t','t','r',' ',' ','r','t','t','d','t','t','t','t','r','t','t','t'},
-	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t',' ',' ','e',' ',' ','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
-	{'t',' ','t','t','t','t','t','r','t','t','t','t','t','t','t','t','r','r','t','t','t','t','t','t','t','t','r','t','t','r','t','d','t','t','t','t',' ','t'},
-	{'t','r','t','t','t','t','t','r','t',' ',' ','t','t','t','t','t','r','t','r','d','t','t','d','t','t','t','t','r','t','t','t','r','t','t','d','t','r','t'},
+	{'t','t','t','r','t','t','r','t','r','t','t','t','t','t','t','t',' ',' ',' ',' ',' ','t','t','r','r','t','r','t','t','r','t','t','t','t','t','t','t','t'},
+	{'t',' ','t','t','t','t','t','r','t','t','t','t','t','t','t','t','r','r',' ',' ',' ','t','t','t','t','t','r','t','t','r','t','d','t','t','t','t',' ','t'},
+	{'t','r','t','t','t','t','t','r','t',' ',' ','t','t','t','t','t','r','e',' ',' ',' ','t','d','t','t','t','t','r','t','t','t','r','t','t','d','t','r','t'},
 	{'t','d','r','t',' ','t','t','t','t','t','t','t','t','t','t','t','t','r','r','r','t','t','r','t','t','t','t','t','t','t','t','d','t','t','t','t','t','r'},
 	{'t','t','t','t','t','t','t','t','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i','i'},
 	{' ',' ','t','t','t','t','t','t','t','t','t',' ','t','t','t','d','t','t','t','t','r','t','t','t','t','t','r','t','t','t','r','t','t','t','t','t','t','t'},
@@ -446,6 +513,7 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 		diamant = affichage(tab,ecran, sprite);
 		// Actualisation de l'ecran
 		SDL_Flip(ecran);
+
 		if (mort == 1)
 		{
 			// Quitter la fenêtre de jeu et retourner au menu principal
@@ -457,8 +525,16 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 			
 			
 		}
-		
-		
+		if (mort == 2)
+		{
+			// Quitter la fenêtre de jeu et retourner au menu principal
+			continuer=1;
+	
+			// Affichage de l'image "gameover" pendant 2,5 secondes
+			SDL_Delay(1000);
+			
+			
+		}
 		
 		
       

@@ -27,7 +27,7 @@
 	#define ENEMI_GAUCHEMVT   'G'       
 	#define ENEMI_BASMVT      'A'
 	#define ENEMI_HAUTMVT     'U'
-	
+	#define EXPLOSION         'X'
 	
 	// Constante d'orientation
 	

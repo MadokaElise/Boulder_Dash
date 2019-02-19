@@ -77,6 +77,9 @@ int affichage (char tab[NB_LIGNE][NB_COLONNE], SDL_Surface *ecran, Ressource * s
 				case ENEMI_HAUT:
 					SDL_BlitSurface(sprite->enemi, NULL, ecran, &position);
 					break;
+				case EXPLOSION:
+					SDL_BlitSurface(sprite->explosion, NULL, ecran, &position);
+					break;
                     
 			}
 		}
