@@ -10,12 +10,12 @@
 #include "jouer.h"
 #include "loadmap.h"
 
-char** load_map()
+void load_map(char tab[NB_LIGNE][NB_COLONNE])
 {
 	FILE* fichier=NULL;
 	int i,j;
 	char caractereActuel='0';
-	char tab[NB_LIGNE][NB_COLONNE];
+	
 	fichier = fopen("map1.txt", "r");
 	
 	 if (fichier != NULL)
@@ -38,5 +38,5 @@ char** load_map()
         printf("Impossible d'ouvrir le fichier test.txt");
     }
     
-	return tab;
+	return;
 }

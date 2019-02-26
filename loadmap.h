@@ -5,5 +5,5 @@
 	#include "structure.h"
 	#include "constante.h"
 
-	char** load_map();
+	void load_map(char tab[NB_LIGNE][NB_COLONNE]);
 #endif
