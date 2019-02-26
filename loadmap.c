@@ -7,6 +7,7 @@
 #include "affichage.h"
 #include "constante.h"
 #include "structure.h"
+#include "jouer.h"
 #include "loadmap.h"
 
 char** load_map()
@@ -14,16 +15,7 @@ char** load_map()
 	FILE* fichier=NULL;
 	int i,j;
 	char caractereActuel='0';
-	
-	int ** tab = NULL;
-	int i=0;
-
-	tab = (int**)malloc(dim1*sizeof(int*));
-	for(i=0;i<dim1;i++)
-	{
-		tab[i] = (int*)malloc(dim2*sizeof(int));
-	}
-	
+	char tab[NB_LIGNE][NB_COLONNE];
 	fichier = fopen("map1.txt", "r");
 	
 	 if (fichier != NULL)
@@ -34,10 +26,8 @@ char** load_map()
 			for(j=0;j<NB_COLONNE;j++)
 			{
 				caractereActuel = fgetc(fichier);
-				map[i][j]=caractereActuel;
-
+				tab[i][j]=caractereActuel;
 			}
-
 		}
 			         
         fclose(fichier);

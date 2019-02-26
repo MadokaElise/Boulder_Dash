@@ -1,5 +1,5 @@
 #ifndef LOADMAP
-#define LOAD MAP
+#define LOADMAP
 
 	
 	#include "structure.h"
