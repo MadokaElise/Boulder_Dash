@@ -7,6 +7,7 @@
 #include "affichage.h"
 #include "constante.h"
 #include "structure.h"
+#include "loadmap.h"
 
 
 
@@ -415,6 +416,7 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	delay = 200;  /* To round it down to the nearest 10 ms */
 	my_timer_id = SDL_AddTimer(delay, my_callbackfunc, NULL);
 	// Initialisation de la map
+	
 	char tab[NB_LIGNE][NB_COLONNE] = 
 	{
 	{'t','t','t','t','t','t',' ','t','t','d','t','r',' ','t','t','t','t','t','r','t','r','t','t','t','t','t','t','t',' ','t','t','t','t','r','t','t','t','t'},
@@ -438,6 +440,12 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	{'t','t','t',' ','t','t',' ','t','r','t','t','r','t','r','r','t','t','t','t','t','t','t','t','t','r','t','r','d','t','t','t','t','t','t','r','t','t','r'},
 	{'t','d','t','t','t','t','r','t','t','t','t','t',' ','t','t','t','t','t','t','t','t','t',' ','t','r','t','t','r','t','t','t','t','r','t','t','t','r','t'},
 	};
+	
+	/** MOI
+	 * char tab[NB_LIGNE][NB_COLONNE];
+	
+	tab=load_map();
+	**/
 	
 	SDL_Rect  position_joueur;
 	SDL_Event event;
