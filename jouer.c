@@ -404,21 +404,22 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	win = IMG_Load("win.bmp");
 	SDL_Rect positiongameover, positionwin;
 	positionwin.x= 300;
-	positionwin.y=30;
+	positionwin.y=0;
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	// initialisatio variable diverse
-	int i, j, x,y, diamant, continuer=0, mort=0 ;
+	int i, j, x,y, diamant, continuer=0, mort=0, niveau=1;
 	// Initialisation pour timer 
 	
 	int delay;
 	SDL_TimerID my_timer_id;
 	delay = 200;  /* To round it down to the nearest 10 ms */
 	my_timer_id = SDL_AddTimer(delay, my_callbackfunc, NULL);
+	
 	// Initialisation de la map
 	char tab[NB_LIGNE][NB_COLONNE];
 	
-	load_map(tab);
+	load_map(tab,niveau);
 
 	
 	SDL_Rect  position_joueur;
@@ -544,12 +545,34 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 
 		if ( (position_joueur.x==x) && (position_joueur.y==y) )
 		{
-			// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
-			SDL_BlitSurface(win, NULL, ecran, &positionwin);
-			SDL_Flip(ecran);
-			// Affichage de l'image "gameover" pendant 2,5 secondes
-			SDL_Delay(2500);
-			continuer =1;
+			niveau++;
+			printf("%d",niveau);
+			if(niveau>NIVEAU_MAX)
+			{
+				// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
+				SDL_BlitSurface(win, NULL, ecran, &positionwin);
+				SDL_Flip(ecran);
+				// Affichage de l'image "WIN" pendant 2,5 secondes
+				SDL_Delay(2500);
+			continuer=1;
+			}else
+			{
+				load_map(tab,niveau);
+				for (i = 0 ; i < NB_COLONNE ; i++)
+				{
+					for (j = 0 ; j < NB_LIGNE ; j++)
+					{
+						if (tab[i][j] == BONHOMME) 
+						{
+							position_joueur.x = i;
+							position_joueur.y = j;
+							
+						}
+					}
+				}
+				
+				
+			}
 		}
 
 	}

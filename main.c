@@ -18,7 +18,7 @@ void chargement (Ressource *sprite)
     sprite->diamant= IMG_Load("diamant_2.bmp");
     sprite->porte_ouverte = IMG_Load("porte_ouverte.bmp");
     sprite->porte_ferme= IMG_Load("porte_ferme.bmp");
-    sprite->bonhomme= IMG_Load("perso_1.bmp");
+    sprite->bonhomme= IMG_Load("totoro.bmp");
     sprite->rocher = IMG_Load("rocher_1.bmp");
     sprite->rocher_mvt = IMG_Load("rocher_mvt.bmp");
     sprite->diamant_mvt = IMG_Load("diamant_mvt.bmp");
@@ -50,7 +50,7 @@ int main(void)
 		{
 			choix=0;
 			menu(&choix, ecran);
-			if(choix==3)
+			if(choix==3) 	
 			{
 				choix=5;
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));

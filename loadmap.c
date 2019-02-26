@@ -10,14 +10,25 @@
 #include "jouer.h"
 #include "loadmap.h"
 
-void load_map(char tab[NB_LIGNE][NB_COLONNE])
+void load_map(char tab[NB_LIGNE][NB_COLONNE], int niveau)
 {
 	FILE* fichier=NULL;
 	int i,j;
 	char caractereActuel='0';
 	
-	fichier = fopen("map1.txt", "r");
-	
+	/** CHOIX DE LA MAP **/
+	switch(niveau)
+	{
+		
+		case 1:
+		fichier = fopen("map1.txt", "r");
+		break;
+		case 2:
+		fichier = fopen("map2.txt", "r");
+		break;
+		
+		default:;
+	}
 	 if (fichier != NULL)
     {
         // On peut lire et écrire dans le fichier
