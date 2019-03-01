@@ -24,7 +24,7 @@ void load_map(char tab[NB_LIGNE][NB_COLONNE], int niveau)
 		fichier = fopen("map1.txt", "r");
 		break;
 		case 2:
-		fichier = fopen("map2.txt", "r");
+		fichier = fopen("map5.txt", "r");
 		break;
 		case 3:
 		fichier = fopen("map3.txt", "r");
@@ -33,7 +33,7 @@ void load_map(char tab[NB_LIGNE][NB_COLONNE], int niveau)
 		fichier = fopen("map4.txt", "r");
 		break;
 		case 5:
-		fichier = fopen("map5.txt", "r");
+		fichier = fopen("map2txt", "r");
 		break;
 		
 		default:;
