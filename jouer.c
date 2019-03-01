@@ -408,7 +408,7 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 	positiongameover.x= 300;
 	positiongameover.y=50;
 	// initialisatio variable diverse
-	int i, j, x,y, diamant, continuer=0, mort=0, niveau=1;
+	int i, j, x=-1,y=-1, diamant, continuer=0, mort=0, niveau=1;
 	// Initialisation pour timer 
 	
 	int delay;
@@ -569,8 +569,10 @@ void jouer (SDL_Surface *ecran, Ressource * sprite)
 							
 						}
 					}
+					
 				}
-				
+				x=-1;
+				y=-1;
 				
 			}
 		}

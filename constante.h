@@ -7,7 +7,7 @@
     #define NB_LIGNE      20 // Nombre de ligne du plateau
     #define LARGEUR_FENETRE     TAILLE_BLOC * NB_COLONNE
     #define HAUTEUR_FENETRE     TAILLE_BLOC * NB_LIGNE
-    #define NIVEAU_MAX 6
+    #define NIVEAU_MAX 5
 	
 	// Constante des differents blocs
 	#define INCASSABLE        'i'
