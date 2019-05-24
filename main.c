@@ -24,6 +24,18 @@ void chargement (Ressource *sprite)
     sprite->diamant_mvt = IMG_Load("diamant_mvt.bmp");
 	sprite->enemi = IMG_Load("enemi.bmp");
 	sprite->explosion = IMG_Load("explosion.bmp");
+	sprite->gameover = IMG_Load("game_over.bmp");
+	sprite->win = IMG_Load("win.bmp");
+	sprite->anime1_1=IMG_Load("annim_rocher1.bmp");
+	sprite->anime1_2=IMG_Load("annim_rocher2.bmp");
+	sprite->anime1_3=IMG_Load("annim_rocher3.bmp");
+	sprite->anime2_1=IMG_Load("annim_enemi6.bmp");
+	sprite->anime2_2=IMG_Load("annim_enemi5.bmp");
+	sprite->anime2_3=IMG_Load("annim_enemi1.bmp");
+	sprite->anime2_4=IMG_Load("annim_enemi2.bmp");
+	sprite->anime2_5=IMG_Load("annim_enemi3.bmp");
+	sprite->anime2_6=IMG_Load("annim_enemi4.bmp");
+
 	
 	return;
 }

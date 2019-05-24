@@ -16,7 +16,19 @@ typedef struct
 	SDL_Surface *rocher_mvt;
 	SDL_Surface *diamant_mvt;
 	SDL_Surface *enemi;
+	SDL_Surface *win;
+	SDL_Surface *gameover;
+	SDL_Surface *anime1_1;
+	SDL_Surface *anime1_2;
+	SDL_Surface *anime1_3;
+	SDL_Surface *anime2_1;
+	SDL_Surface *anime2_2;
+	SDL_Surface *anime2_3;
+	SDL_Surface *anime2_4;
+	SDL_Surface *anime2_5;
+	SDL_Surface *anime2_6;
 	SDL_Surface *explosion;
+
 
 } Ressource ;
 
