@@ -55,8 +55,8 @@ int main(void)
 {
 	int choix=0,x,y;
 	SDL_Event event;
-    SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL;
-	SDL_Rect positionRegle, positionBoutonFin;
+    SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL, *menuscore = NULL, *boutonfin2=NULL;
+	SDL_Rect positionRegle, positionBoutonFin, positionMenuScore, positionBoutonFin2;
 	SDL_WaitEvent(&event);
 	// chargement des sous systeme video et timer
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
@@ -75,8 +75,45 @@ int main(void)
 			menu(&choix, ecran);
 			if(choix==3) 	
 			{
-				choix=5;
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+				menuscore = IMG_Load("menuscore.bmp");
+				boutonfin2 = IMG_Load("boutonfin.bmp");
+				positionMenuScore.x = 0;
+				positionMenuScore.y = 0;
+				positionBoutonFin2.x=100;
+				positionBoutonFin2.y=515;
+				
+				SDL_BlitSurface(menuscore, NULL, ecran, &positionMenuScore);
+				SDL_BlitSurface(boutonfin2, NULL, ecran, &positionBoutonFin2);
+				SDL_Flip(ecran);
+				
+				while (choix==3)
+				{	
+					SDL_WaitEvent(&event);
+					switch(event.type)
+					{	
+						case SDL_QUIT:
+						choix=5;
+						break;
+						case SDL_MOUSEBUTTONUP:
+							if (event.button.button == SDL_BUTTON_LEFT)
+							{
+								x=event.button.x;
+								y=event.button.y;
+								
+								if(((100 < x)&&(x < 320))&&((515 < y)&&(y < 590)))
+								{
+							
+								choix=10;
+								break;								
+								}
+							}
+							break;
+						default:;
+					}
+				}
+				
+				
 				// Affichage du score
 			}else if(choix==4)
 			{
