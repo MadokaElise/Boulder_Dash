@@ -8,6 +8,7 @@
 #include "constante.h"
 #include "structure.h"
 #include "loadmap.h"
+#include "affiche_score.h"
 
 int explosion_enemi(char tab[NB_LIGNE][NB_COLONNE], int i, int j, int mort)
 {
@@ -168,7 +169,7 @@ int gravitedirect(char tab[NB_LIGNE][NB_COLONNE], int mort)
 	return mort = 0;
 }
 
-void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos)
+void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos, int *diamant_obtenu)
 {
 
 	switch (orientation)
@@ -184,6 +185,13 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
 		}
+		
+		/** Si le joueur récupère un diamant **/
+		if (tab[pos->x][pos->y - 1] == DIAMANT)
+		{
+			*diamant_obtenu = *diamant_obtenu + 1;
+		}
+		
 		// Si la case est accessible, le joueur va à gauche
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x][pos->y - 1] = BONHOMME;
@@ -200,6 +208,13 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
 		}
+		
+		/** Si le joueur récupère un diamant **/
+		if (tab[pos->x][pos->y + 1] == DIAMANT)
+		{
+			*diamant_obtenu = *diamant_obtenu + 1;
+		}
+		
 		// Si la case est accessible, le joueur va à droite
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x][pos->y + 1] = BONHOMME;
@@ -216,6 +231,13 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
 		}
+		
+		/** Si le joueur récupère un diamant **/
+		if (tab[pos->x - 1][pos->y] == DIAMANT)
+		{
+			*diamant_obtenu = *diamant_obtenu + 1;
+		}
+		
 		// Si la case est accessible, le joueur monte
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x - 1][pos->y] = BONHOMME;
@@ -232,6 +254,13 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
 		}
+		
+		/** Si le joueur récupère un diamant **/
+		if (tab[pos->x + 1][pos->y] == DIAMANT)
+		{
+			*diamant_obtenu = *diamant_obtenu + 1;
+		}
+		
 		// Si la case est accessible, le joueur descend
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x + 1][pos->y] = BONHOMME;
@@ -425,13 +454,16 @@ void jouer(SDL_Surface *ecran, Ressource *sprite)
 	//initialisation suface
 	//SDL_Surface *gameover = NULL, *win =NULL;
 
-	SDL_Rect positiongameover, positionwin;
+	SDL_Rect positiongameover, positionwin, positiondiamantscore;
 	positionwin.x = 300;
 	positionwin.y = 0;
 	positiongameover.x = 350;
-	positiongameover.y = 50;
+	positiongameover.y = 0;
+	positiondiamantscore.x= 700;
+	positiondiamantscore.y= 500;
 	// initialisatio variable diverse
-	int i, j, x = -1, y = -1, diamant, continuer = 0, mort = 0, niveau = 1;
+	int i, j, x = -1, y = -1, diamant, continuer = 0, mort = 0, niveau = 1,diamant_obtenu=0;
+	int centaine=0, dizaine=0, unite=0;
 	// Initialisation pour timer
 
 	int delay;
@@ -494,16 +526,16 @@ void jouer(SDL_Surface *ecran, Ressource *sprite)
 				continuer = 1;
 				break;
 			case SDLK_UP:
-				mouvement_joueur(tab, HAUT, &position_joueur);
+				mouvement_joueur(tab, HAUT, &position_joueur,&diamant_obtenu);
 				break;
 			case SDLK_DOWN:
-				mouvement_joueur(tab, BAS, &position_joueur);
+				mouvement_joueur(tab, BAS, &position_joueur,&diamant_obtenu);
 				break;
 			case SDLK_RIGHT:
-				mouvement_joueur(tab, DROITE, &position_joueur);
+				mouvement_joueur(tab, DROITE, &position_joueur,&diamant_obtenu);
 				break;
 			case SDLK_LEFT:
-				mouvement_joueur(tab, GAUCHE, &position_joueur);
+				mouvement_joueur(tab, GAUCHE, &position_joueur,&diamant_obtenu);
 				break;
 			default:
 				break;
@@ -523,7 +555,14 @@ void jouer(SDL_Surface *ecran, Ressource *sprite)
 		{
 			// Quitter la fenêtre de jeu et retourner au menu principal
 			continuer = 1;
+			
+			/** calculer le nombre de diamants obtenus **/
+			calcul_score(&diamant_obtenu,&centaine,&dizaine,&unite);
+			
 			SDL_BlitSurface(sprite->gameover, NULL, ecran, &positiongameover);
+			SDL_BlitSurface(sprite->diamantscore, NULL, ecran, &positiondiamantscore);
+			affiche_score(ecran,sprite,&diamant_obtenu,&centaine,&dizaine,&unite);
+			
 			SDL_Flip(ecran);
 			// Affichage de l'image "gameover" pendant 2,5 secondes
 			SDL_Delay(2500);
