@@ -559,11 +559,21 @@ void jouer(SDL_Surface *ecran, Ressource *sprite)
 			/** calculer le nombre de diamants obtenus **/
 			calcul_score(&diamant_obtenu,&centaine,&dizaine,&unite);
 			
+			/** Affichage du game over et du resultat **/
 			SDL_BlitSurface(sprite->gameover, NULL, ecran, &positiongameover);
 			SDL_BlitSurface(sprite->diamantscore, NULL, ecran, &positiondiamantscore);
 			affiche_score(ecran,sprite,&diamant_obtenu,&centaine,&dizaine,&unite);
 			
 			SDL_Flip(ecran);
+			/** Ajout du nouveau score **/
+			
+			Liste *liste_score = initialisation();
+			Element *nouveau_score =malloc(sizeof(*nouveau_score));
+			nouveau_score->nombre=diamant_obtenu;
+			printf("diamant_obtenues=%d",diamant_obtenu);
+			ajoute_score(liste_score,nouveau_score);
+			ecrire_score(liste_score);
+			
 			// Affichage de l'image "gameover" pendant 2,5 secondes
 			SDL_Delay(2500);
 		}

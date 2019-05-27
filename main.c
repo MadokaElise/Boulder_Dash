@@ -10,6 +10,7 @@
 #include "jouer.h"
 #include "menu.h"
 #include "structure.h"
+#include "affiche_score.h"
 
 void chargement (Ressource *sprite)
 {
@@ -68,6 +69,8 @@ int main(void)
     // Chargement de la fenêtre
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Boulder Dash", NULL);
+    
+    Liste *liste_score = initialisation();
 	
 		do
 		{
@@ -75,6 +78,8 @@ int main(void)
 			menu(&choix, ecran);
 			if(choix==3) 	
 			{
+				/** Affichage du score **/
+				
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				menuscore = IMG_Load("menuscore.bmp");
 				boutonfin2 = IMG_Load("boutonfin.bmp");
@@ -85,10 +90,18 @@ int main(void)
 				
 				SDL_BlitSurface(menuscore, NULL, ecran, &positionMenuScore);
 				SDL_BlitSurface(boutonfin2, NULL, ecran, &positionBoutonFin2);
+				
+				
+				/** MENU SCORE **/
+				
+				lire_score(liste_score);
+				aff_liste(liste_score);
+				
 				SDL_Flip(ecran);
 				
 				while (choix==3)
 				{	
+					
 					SDL_WaitEvent(&event);
 					switch(event.type)
 					{	
@@ -114,7 +127,6 @@ int main(void)
 				}
 				
 				
-				// Affichage du score
 			}else if(choix==4)
 			{
 				// Affichage de l'aide
@@ -169,8 +181,10 @@ int main(void)
 		}
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 		
-	}while((choix!=1)&&(choix!=5));	
 		
+	}while((choix!=1)&&(choix!=5));	
+		/** Liberer la liste **/
+		libere_liste(liste_score);
 	SDL_Quit();
 	return EXIT_SUCCESS;
 	
