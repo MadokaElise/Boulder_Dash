@@ -68,7 +68,7 @@ int main(void)
 	// chargement des sous systeme video et timer
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
     // Chargement de l'icône
-	SDL_WM_SetIcon(IMG_Load("icone.ico"), NULL); 
+	SDL_WM_SetIcon(IMG_Load("totoro.bmp"), NULL); 
     // chargement des sprites de jeu
 	Ressource sprite;
 	chargement (&sprite);
