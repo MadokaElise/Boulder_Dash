@@ -169,7 +169,7 @@ int gravitedirect(char tab[NB_LIGNE][NB_COLONNE], int mort)
 	return mort = 0;
 }
 
-void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos, int *diamant_obtenu)
+int mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect *pos, int *diamant_obtenu, int mort)
 {
 
 	switch (orientation)
@@ -180,7 +180,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		// => présence d'un bloc incassable
 		// => présence d'un rocher
 		// => porte fermée
-		if ((pos->y - 1 < 0) || (tab[pos->x][pos->y - 1] == INCASSABLE) || (tab[pos->x][pos->y - 1] == ROCHER) || (tab[pos->x][pos->y - 1] == PORTE_FERME))
+		if ((pos->y - 1 < 0) || (tab[pos->x][pos->y - 1] == INCASSABLE) || (tab[pos->x][pos->y - 1] == ROCHER) ||(tab[pos->x][pos->y - 1] == ROCHERMVT) || (tab[pos->x][pos->y - 1] == PORTE_FERME))
 		{
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
@@ -191,7 +191,11 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		{
 			*diamant_obtenu = *diamant_obtenu + 1;
 		}
-		
+		if( (tab[pos->x][pos->y - 1] == ENEMI_BAS) || (tab[pos->x][pos->y - 1] == ENEMI_BASMVT)||(tab[pos->x][pos->y - 1] == ENEMI_HAUT) || (tab[pos->x][pos->y - 1] == ENEMI_HAUTMVT)||(tab[pos->x][pos->y - 1] == ENEMI_DROITE) || (tab[pos->x][pos->y - 1] == ENEMI_DROITEMVT)||(tab[pos->x][pos->y - 1] == ENEMI_GAUCHE) || (tab[pos->x][pos->y - 1] == ENEMI_GAUCHEMVT) )
+		{
+			mort =1;
+			return mort;
+		}
 		// Si la case est accessible, le joueur va à gauche
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x][pos->y - 1] = BONHOMME;
@@ -203,7 +207,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		// => présence d'un bloc incassable
 		// => présence d'un rocher
 		// => porte fermée
-		if ((pos->y + 2 > NB_COLONNE) || (tab[pos->x][pos->y + 1] == INCASSABLE) || (tab[pos->x][pos->y + 1] == ROCHER) || (tab[pos->x][pos->y + 1] == PORTE_FERME))
+		if ((pos->y + 2 > NB_COLONNE) || (tab[pos->x][pos->y + 1] == INCASSABLE) || (tab[pos->x][pos->y + 1] == ROCHER) || (tab[pos->x][pos->y + 1] == ROCHERMVT) || (tab[pos->x][pos->y + 1] == PORTE_FERME))
 		{
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
@@ -214,7 +218,11 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		{
 			*diamant_obtenu = *diamant_obtenu + 1;
 		}
-		
+		if( (tab[pos->x][pos->y + 1] == ENEMI_BAS) || (tab[pos->x][pos->y + 1] == ENEMI_BASMVT)||(tab[pos->x][pos->y + 1] == ENEMI_HAUT) || (tab[pos->x][pos->y + 1] == ENEMI_HAUTMVT)||(tab[pos->x][pos->y + 1] == ENEMI_DROITE) || (tab[pos->x][pos->y + 1] == ENEMI_DROITEMVT)||(tab[pos->x][pos->y + 1] == ENEMI_GAUCHE) || (tab[pos->x][pos->y + 1] == ENEMI_GAUCHEMVT) )
+		{
+			mort =1;
+			return mort;
+		}
 		// Si la case est accessible, le joueur va à droite
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x][pos->y + 1] = BONHOMME;
@@ -226,7 +234,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		// => présence d'un bloc incassable
 		// => présence d'un rocher
 		// => porte fermée
-		if ((pos->x - 1 < 0) || (tab[pos->x - 1][pos->y] == INCASSABLE) || (tab[pos->x - 1][pos->y] == ROCHER) || (tab[pos->x - 1][pos->y] == PORTE_FERME))
+		if ((pos->x - 1 < 0) || (tab[pos->x - 1][pos->y] == INCASSABLE) || (tab[pos->x - 1][pos->y] == ROCHER) || (tab[pos->x - 1][pos->y] == ROCHERMVT)|| (tab[pos->x - 1][pos->y] == PORTE_FERME))
 		{
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
@@ -237,7 +245,11 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		{
 			*diamant_obtenu = *diamant_obtenu + 1;
 		}
-		
+		if( (tab[pos->x - 1][pos->y] == ENEMI_BAS) || (tab[pos->x - 1][pos->y] == ENEMI_BASMVT)||(tab[pos->x - 1][pos->y]== ENEMI_HAUT) || (tab[pos->x - 1][pos->y] == ENEMI_HAUTMVT)||(tab[pos->x - 1][pos->y] == ENEMI_DROITE) || (tab[pos->x - 1][pos->y] == ENEMI_DROITEMVT)||(tab[pos->x - 1][pos->y] == ENEMI_GAUCHE) || (tab[pos->x - 1][pos->y] == ENEMI_GAUCHEMVT) )
+		{
+			mort =1;
+			return mort;
+		}
 		// Si la case est accessible, le joueur monte
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x - 1][pos->y] = BONHOMME;
@@ -249,7 +261,7 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		// => présence d'un bloc incassable
 		// => présence d'un rocher
 		// => porte fermée
-		if ((pos->x + 2 > NB_LIGNE) || (tab[pos->x + 1][pos->y] == INCASSABLE) || (tab[pos->x + 1][pos->y] == ROCHER) || (tab[pos->x + 1][pos->y] == PORTE_FERME))
+		if ((pos->x + 2 > NB_LIGNE) || (tab[pos->x + 1][pos->y] == INCASSABLE) || (tab[pos->x + 1][pos->y] == ROCHER) || (tab[pos->x + 1][pos->y] == ROCHERMVT) || (tab[pos->x + 1][pos->y] == PORTE_FERME))
 		{
 			// Si la case où le joueur veut se rendre est interdite, on sort de la boucle
 			break;
@@ -260,13 +272,18 @@ void mouvement_joueur(char tab[NB_LIGNE][NB_COLONNE], int orientation, SDL_Rect 
 		{
 			*diamant_obtenu = *diamant_obtenu + 1;
 		}
-		
+		if( (tab[pos->x + 1][pos->y] == ENEMI_BAS) || (tab[pos->x + 1][pos->y] == ENEMI_BASMVT)||(tab[pos->x + 1][pos->y]== ENEMI_HAUT) || (tab[pos->x + 1][pos->y] == ENEMI_HAUTMVT)||(tab[pos->x + 1][pos->y] == ENEMI_DROITE) || (tab[pos->x + 1][pos->y] == ENEMI_DROITEMVT)||(tab[pos->x + 1][pos->y] == ENEMI_GAUCHE) || (tab[pos->x + 1][pos->y] == ENEMI_GAUCHEMVT) )
+		{
+			mort =1;
+			return mort;
+		}
 		// Si la case est accessible, le joueur descend
 		tab[pos->x][pos->y] = GALERIE;
 		tab[pos->x + 1][pos->y] = BONHOMME;
 		pos->x++;
 		break;
 	}
+	return 0;
 }
 
 // fonction qui gere le deplacement des enemis
@@ -446,6 +463,28 @@ void affichage_aide(int niveau, SDL_Surface *ecran, Ressource *sprite)
 			SDL_Delay(200);
 		}
 	}
+	if (niveau == 3)
+	{
+		for (i = 0; i < 3; i++)
+		{
+			SDL_BlitSurface(sprite->anime3_1, NULL, ecran, &position);
+			SDL_Flip(ecran);
+			SDL_Delay(200);
+			SDL_BlitSurface(sprite->anime3_2, NULL, ecran, &position);
+			SDL_Flip(ecran);
+			SDL_Delay(200);
+			SDL_BlitSurface(sprite->anime3_3, NULL, ecran, &position);
+			SDL_Flip(ecran);
+			SDL_Delay(200);
+			SDL_BlitSurface(sprite->anime3_4, NULL, ecran, &position);
+			SDL_Flip(ecran);
+			SDL_Delay(100);
+			SDL_BlitSurface(sprite->anime3_5, NULL, ecran, &position);
+			SDL_Flip(ecran);
+			SDL_Delay(200);
+			
+		}
+	}
 }
 
 void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
@@ -526,16 +565,16 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 				continuer = 1;
 				break;
 			case SDLK_UP:
-				mouvement_joueur(tab, HAUT, &position_joueur,&diamant_obtenu);
+				mort = mouvement_joueur(tab, HAUT, &position_joueur,&diamant_obtenu,mort);
 				break;
 			case SDLK_DOWN:
-				mouvement_joueur(tab, BAS, &position_joueur,&diamant_obtenu);
+				mort = mouvement_joueur(tab, BAS, &position_joueur,&diamant_obtenu,mort);
 				break;
 			case SDLK_RIGHT:
-				mouvement_joueur(tab, DROITE, &position_joueur,&diamant_obtenu);
+				mort = mouvement_joueur(tab, DROITE, &position_joueur,&diamant_obtenu,mort);
 				break;
 			case SDLK_LEFT:
-				mouvement_joueur(tab, GAUCHE, &position_joueur,&diamant_obtenu);
+				mort = mouvement_joueur(tab, GAUCHE, &position_joueur,&diamant_obtenu,mort);
 				break;
 			default:
 				break;

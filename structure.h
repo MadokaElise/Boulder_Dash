@@ -27,6 +27,11 @@ typedef struct
 	SDL_Surface *anime2_4;
 	SDL_Surface *anime2_5;
 	SDL_Surface *anime2_6;
+	SDL_Surface *anime3_1;
+	SDL_Surface *anime3_2;
+	SDL_Surface *anime3_3;
+	SDL_Surface *anime3_4;
+	SDL_Surface *anime3_5;
 	SDL_Surface *explosion;
 	SDL_Surface *diamantscore;
 	SDL_Surface *chiffre0;

@@ -36,6 +36,12 @@ void chargement (Ressource *sprite)
 	sprite->anime2_4=IMG_Load("annim_enemi2.bmp");
 	sprite->anime2_5=IMG_Load("annim_enemi3.bmp");
 	sprite->anime2_6=IMG_Load("annim_enemi4.bmp");
+	sprite->anime3_1=IMG_Load("annim_explosion1.bmp");
+	sprite->anime3_2=IMG_Load("annim_explosion2.bmp");
+	sprite->anime3_3=IMG_Load("annim_explosion3.bmp");
+	sprite->anime3_4=IMG_Load("annim_explosion4.bmp");
+	sprite->anime3_5=IMG_Load("annim_explosion5.bmp");
+	
 	sprite->diamantscore=IMG_Load("diamantscore.bmp");
 	sprite->chiffre0=IMG_Load("chiffre0.bmp");
 	sprite->chiffre1=IMG_Load("chiffre1.bmp");
