@@ -647,7 +647,7 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 		if ((position_joueur.x == x) && (position_joueur.y == y))
 		{
 			niveau++;
-			printf("%d", niveau);
+			
 			if (niveau > NIVEAU_MAX)
 			{
 				// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal

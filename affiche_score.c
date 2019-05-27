@@ -158,6 +158,167 @@ void affiche_score(SDL_Surface *ecran, Ressource * sprite,int* diamant_obtenu,in
 	
 }
 	
+	
+void affiche_score2(SDL_Surface *ecran, Ressource * sprite,int nbr_score,int* diamant_obtenu,int* centaine, int*dizaine, int* unite)
+{
+	
+	SDL_Rect positioncentaine, positiondizaine, positionunite;
+	positioncentaine.x = 484;
+	
+	positiondizaine.x = 548;
+	
+	positionunite.x = 612;
+	
+	switch(nbr_score)
+	{
+		case 1:
+		positioncentaine.y = 195;
+		positiondizaine.y = 195;
+		positionunite.y = 195;
+		break;
+		
+		case 2:
+		positioncentaine.y = 270;
+		positiondizaine.y = 270;
+		positionunite.y = 270;
+		break;
+		
+		case 3:
+		positioncentaine.y = 340;
+		positiondizaine.y = 340;
+		positionunite.y = 340;
+		break;
+		
+		case 4:
+		positioncentaine.y = 415;
+		positiondizaine.y = 415;
+		positionunite.y = 415;
+		break;
+		
+		case 5:
+		positioncentaine.y = 490;
+		positiondizaine.y = 490;
+		positionunite.y = 490;
+		break;
+		
+		default:
+		break;
+	}
+	
+	switch (*centaine)
+	{
+	case 1: 
+	SDL_BlitSurface(sprite->chiffre1, NULL, ecran, &positioncentaine);
+	break;
+	case 2: 
+	SDL_BlitSurface(sprite->chiffre2, NULL, ecran, &positioncentaine);
+	break;
+	case 3: 
+	SDL_BlitSurface(sprite->chiffre3, NULL, ecran, &positioncentaine);
+	break;
+	case 4: 
+	SDL_BlitSurface(sprite->chiffre4, NULL, ecran, &positioncentaine);
+	break;
+	case 5: 
+	SDL_BlitSurface(sprite->chiffre5, NULL, ecran, &positioncentaine);
+	break;
+	case 6: 
+	SDL_BlitSurface(sprite->chiffre6, NULL, ecran, &positioncentaine);
+	break;
+	case 7: 
+	SDL_BlitSurface(sprite->chiffre7, NULL, ecran, &positioncentaine);
+	break;
+	case 8: 
+	SDL_BlitSurface(sprite->chiffre8, NULL, ecran, &positioncentaine);
+	break;
+	case 9: 
+	SDL_BlitSurface(sprite->chiffre9, NULL, ecran, &positioncentaine);
+	break;
+	
+	default: break;
+	}
+	
+	switch (*dizaine)
+	{
+	case 1: 
+	SDL_BlitSurface(sprite->chiffre1, NULL, ecran, &positiondizaine);
+	break;
+	case 2: 
+	SDL_BlitSurface(sprite->chiffre2, NULL, ecran, &positiondizaine);
+	break;
+	case 3: 
+	SDL_BlitSurface(sprite->chiffre3, NULL, ecran, &positiondizaine);
+	break;
+	case 4: 
+	SDL_BlitSurface(sprite->chiffre4, NULL, ecran, &positiondizaine);
+	break;
+	case 5: 
+	SDL_BlitSurface(sprite->chiffre5, NULL, ecran, &positiondizaine);
+	break;
+	case 6: 
+	SDL_BlitSurface(sprite->chiffre6, NULL, ecran, &positiondizaine);
+	break;
+	case 7: 
+	SDL_BlitSurface(sprite->chiffre7, NULL, ecran, &positiondizaine);
+	break;
+	case 8: 
+	SDL_BlitSurface(sprite->chiffre8, NULL, ecran, &positiondizaine);
+	break;
+	case 9: 
+	SDL_BlitSurface(sprite->chiffre9, NULL, ecran, &positiondizaine);
+	break;
+	case 0:
+	if(*diamant_obtenu>=100)
+	{
+		SDL_BlitSurface(sprite->chiffre0, NULL, ecran, &positiondizaine);
+		break;
+	}
+	default: break;
+	}
+	
+	switch (*unite)
+	{
+	case 1: 
+	SDL_BlitSurface(sprite->chiffre1, NULL, ecran, &positionunite);
+	break;
+	case 2: 
+	SDL_BlitSurface(sprite->chiffre2, NULL, ecran, &positionunite);
+	break;
+	case 3: 
+	SDL_BlitSurface(sprite->chiffre3, NULL, ecran, &positionunite);
+	break;
+	case 4: 
+	SDL_BlitSurface(sprite->chiffre4, NULL, ecran, &positionunite);
+	break;
+	case 5: 
+	SDL_BlitSurface(sprite->chiffre5, NULL, ecran, &positionunite);
+	break;
+	case 6: 
+	SDL_BlitSurface(sprite->chiffre6, NULL, ecran, &positionunite);
+	break;
+	case 7: 
+	SDL_BlitSurface(sprite->chiffre7, NULL, ecran, &positionunite);
+	break;
+	case 8: 
+	SDL_BlitSurface(sprite->chiffre8, NULL, ecran, &positionunite);
+	break;
+	case 9: 
+	SDL_BlitSurface(sprite->chiffre9, NULL, ecran, &positionunite);
+	break;
+	case 0:
+	if(*diamant_obtenu>=10 || *diamant_obtenu==0)
+	{
+		SDL_BlitSurface(sprite->chiffre0, NULL, ecran, &positionunite);
+		break;
+	}
+	default: break;
+	}
+	
+	return;
+	
+}
+
+	
 Liste *initialisation()
 {
     Liste *liste = malloc(sizeof(*liste));
@@ -293,16 +454,24 @@ void lire_score(Liste * liste_score)
 	return;
 }
 
-void aff_liste(Liste * liste)
+void aff_liste(SDL_Surface *ecran, Ressource *sprite,Liste * liste)
 {
 	Element * courant = liste->premier;
-	printf (" **** SCORE ****\n") ;
+	int nbr_actuel;
+	int centaine,dizaine,unite;
+	int nbr_score=1;
 	while (courant != NULL)
 	{ 
-		printf ("score =%d\n",courant->nombre) ;
+		centaine=0;
+		dizaine=0;
+		unite=0;
+		nbr_actuel=courant->nombre;
+		calcul_score(&nbr_actuel,&centaine,&dizaine,&unite);
+		affiche_score2(ecran,sprite,nbr_score,&nbr_actuel,&centaine,&dizaine,&unite);
+		
 		courant = courant->suivant ;
+		nbr_score++;
 	}
-	printf("\n\n");
 	return;
 }
 

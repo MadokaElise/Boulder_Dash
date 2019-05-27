@@ -102,7 +102,7 @@ int main(void)
 				/** MENU SCORE **/
 				
 				
-				aff_liste(liste_score);
+				aff_liste(ecran,&sprite,liste_score);
 				
 				SDL_Flip(ecran);
 				
