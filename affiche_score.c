@@ -181,13 +181,11 @@ void ajoute_score (Liste * liste_score,Element *nouveau_score)
 	Element * precedent = NULL;
 	Element * courant = liste_score->premier;
 	int deja_insere = 0;
-	printf("diamant_recues=%d\n",nouveau_score->nombre);
 	while ((courant!=NULL) && (deja_insere ==0))
 	{
 		if ( nouveau_score->nombre >= courant->nombre)
 		{
 			//Le score a ajoute est superieur ou egale au score courant de la boucle, il va devant
-			printf("diamant_actuel=%d\n",courant->nombre);
 			nouveau_score->suivant = courant;
 			if ( precedent != NULL )
 				precedent->suivant = nouveau_score;

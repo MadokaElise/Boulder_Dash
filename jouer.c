@@ -448,7 +448,7 @@ void affichage_aide(int niveau, SDL_Surface *ecran, Ressource *sprite)
 	}
 }
 
-void jouer(SDL_Surface *ecran, Ressource *sprite)
+void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 {
 	void SDL_Delay(Uint32 ms);
 	//initialisation suface
@@ -567,10 +567,9 @@ void jouer(SDL_Surface *ecran, Ressource *sprite)
 			SDL_Flip(ecran);
 			/** Ajout du nouveau score **/
 			
-			Liste *liste_score = initialisation();
+			
 			Element *nouveau_score =malloc(sizeof(*nouveau_score));
 			nouveau_score->nombre=diamant_obtenu;
-			printf("diamant_obtenues=%d",diamant_obtenu);
 			ajoute_score(liste_score,nouveau_score);
 			ecrire_score(liste_score);
 			

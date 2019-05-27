@@ -71,6 +71,7 @@ int main(void)
     SDL_WM_SetCaption("Boulder Dash", NULL);
     
     Liste *liste_score = initialisation();
+    lire_score(liste_score);
 	
 		do
 		{
@@ -94,7 +95,7 @@ int main(void)
 				
 				/** MENU SCORE **/
 				
-				lire_score(liste_score);
+				
 				aff_liste(liste_score);
 				
 				SDL_Flip(ecran);
@@ -177,7 +178,7 @@ int main(void)
 			// Effacement de l'écran
 			SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 			SDL_Flip(ecran);
-			jouer(ecran, &sprite);
+			jouer(ecran, &sprite,liste_score);
 		}
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 		
