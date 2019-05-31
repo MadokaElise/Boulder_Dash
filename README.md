@@ -2,6 +2,7 @@
 
 projet CPI2 (2018/2019)
 
+utilisation de la SDL 1.2
 
 Casaccia Elise
 Cloos Richard
