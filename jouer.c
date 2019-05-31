@@ -494,7 +494,7 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 	//SDL_Surface *gameover = NULL, *win =NULL;
 
 	SDL_Rect positiongameover, positionwin, positiondiamantscore;
-	positionwin.x = 300;
+	positionwin.x = 150;
 	positionwin.y = 0;
 	positiongameover.x = 350;
 	positiongameover.y = 0;
