@@ -33,6 +33,10 @@ int explosion_enemi(char tab[NB_LIGNE][NB_COLONNE], int i, int j, int mort)
 	{
 		mort = 2;
 	}
+	if (tab[i + 1][j - 1] == BONHOMME)
+	{
+		mort = 2;
+	}
 	if (tab[i - 1][j] == BONHOMME)
 	{
 		mort = 2;
