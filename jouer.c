@@ -612,7 +612,7 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 			ajoute_score(liste_score,nouveau_score);
 			ecrire_score(liste_score);
 			
-			// Affichage de l'image "gameover" pendant 2,5 secondes
+			// Affichage de l'image "win" pendant 2,5 secondes
 			SDL_Delay(2500);
 		}
 		if (mort == 2)
@@ -650,8 +650,28 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 			
 			if (niveau > NIVEAU_MAX)
 			{
-				// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
+				/** Ajout du score lors d'une victoire **/
+				
+				/** calculer le nombre de diamants obtenus **/
+				calcul_score(&diamant_obtenu,&centaine,&dizaine,&unite);
+				
+				/** Affichage du win et du resultat **/
 				SDL_BlitSurface(sprite->win, NULL, ecran, &positionwin);
+				SDL_BlitSurface(sprite->diamantscore, NULL, ecran, &positiondiamantscore);
+				affiche_score(ecran,sprite,&diamant_obtenu,&centaine,&dizaine,&unite);
+				
+				SDL_Flip(ecran);
+				/** Ajout du nouveau score **/
+				
+				
+				Element *nouveau_score =malloc(sizeof(*nouveau_score));
+				nouveau_score->nombre=diamant_obtenu;
+				ajoute_score(liste_score,nouveau_score);
+				ecrire_score(liste_score);
+				// Quitte la fenêtre de jeu car le joueur a gagné et retourne au menu principal
+				
+				
+				
 				SDL_Flip(ecran);
 				// Affichage de l'image "WIN" pendant 2,5 secondes
 				SDL_Delay(2500);
