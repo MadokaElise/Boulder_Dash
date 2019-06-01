@@ -60,9 +60,9 @@ void chargement (Ressource *sprite)
 
 int main(void)
 {
-	int choix=0,x,y;
+	int choix=0,x,y, fin=0;
 	SDL_Event event;
-    SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL, *menuscore = NULL, *boutonfin2=NULL;
+    SDL_Surface *ecran = NULL, *regle = NULL, *boutonfin = NULL, *menuscore = NULL, *boutonfin2=NULL, *boutonfinactif=NULL, *boutonfinactif2=NULL;
 	SDL_Rect positionRegle, positionBoutonFin, positionMenuScore, positionBoutonFin2;
 	SDL_WaitEvent(&event);
 	// chargement des sous systeme video et timer
@@ -90,6 +90,7 @@ int main(void)
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				menuscore = IMG_Load("menuscore.bmp");
 				boutonfin2 = IMG_Load("boutonfin.bmp");
+				boutonfinactif2 = IMG_Load("boutonfinactif.bmp");
 				positionMenuScore.x = 0;
 				positionMenuScore.y = 0;
 				positionBoutonFin2.x=100;
@@ -115,6 +116,30 @@ int main(void)
 						case SDL_QUIT:
 						choix=5;
 						break;
+						
+						 /** Changement des boutons en actif **/
+						case SDL_MOUSEMOTION:
+						x=event.motion.x;
+						y=event.motion.y;
+						
+						// FIN
+						if(((100 < x)&&(x < 320))&&((515 < y)&&(y < 590)))
+						{
+								if (fin==0)
+								{
+									SDL_BlitSurface(boutonfinactif2, NULL, ecran, &positionBoutonFin2);
+									SDL_Flip(ecran);
+									fin=1;
+								}
+						}else
+						{
+							SDL_BlitSurface(boutonfin2, NULL, ecran, &positionBoutonFin2);
+							SDL_Flip(ecran);
+							fin=0;
+						}		
+						
+						break;
+						
 						case SDL_MOUSEBUTTONUP:
 							if (event.button.button == SDL_BUTTON_LEFT)
 							{
@@ -141,6 +166,7 @@ int main(void)
 				SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 				regle = IMG_Load("regle.bmp");
 				boutonfin = IMG_Load("boutonfin.bmp");
+				boutonfinactif = IMG_Load("boutonfinactif.bmp");
 				positionRegle.x = 0;
 				positionRegle.y = 0;
 				positionBoutonFin.x=460;
@@ -158,6 +184,31 @@ int main(void)
 						case SDL_QUIT:
 						choix=5;
 						break;
+						
+						 /** Changement des boutons en actif **/
+						case SDL_MOUSEMOTION:
+						x=event.motion.x;
+						y=event.motion.y;
+						
+						// FIN
+						if(((460 < x)&&(x < 680))&&((515 < y)&&(y < 590)))
+						{
+								if (fin==0)
+								{
+									SDL_BlitSurface(boutonfinactif, NULL, ecran, &positionBoutonFin);
+									SDL_Flip(ecran);
+									fin=1;
+								}
+						}else
+						{
+							SDL_BlitSurface(boutonfin, NULL, ecran, &positionBoutonFin);
+							SDL_Flip(ecran);
+							fin=0;
+						}		
+						
+						break;
+						
+						
 						case SDL_MOUSEBUTTONUP:
 							if (event.button.button == SDL_BUTTON_LEFT)
 							{

@@ -28,9 +28,9 @@ void menu(int* choix, SDL_Surface *ecran)
     boutonaide = IMG_Load("boutonaide.bmp");
     boutonfin = IMG_Load("boutonfin.bmp");
     boutonjoueractif = IMG_Load("boutonjoueractif.bmp");
-    boutonscoreactif = IMG_Load("boutonjoueractif.bmp");
-    boutonaideactif = IMG_Load("boutonjoueractif.bmp");
-    boutonfinactif = IMG_Load("boutonjoueractif.bmp");
+    boutonscoreactif = IMG_Load("boutonscoreactif.bmp");
+    boutonaideactif = IMG_Load("boutonaideactif.bmp");
+    boutonfinactif = IMG_Load("boutonfinactif.bmp");
     
     // Position des boutons 
     /** Taille boutons: 220*75 **/
