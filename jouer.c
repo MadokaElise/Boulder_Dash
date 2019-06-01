@@ -15,39 +15,43 @@ int explosion_enemi(char tab[NB_LIGNE][NB_COLONNE], int i, int j, int mort)
 
 	if (tab[i][j] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i][j + 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i][j - 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i + 1][j + 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i + 1][j] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
+	}
+	if (tab[i + 1][j-1] == BONHOMME)
+	{
+		mort = 1;
 	}
 	if (tab[i - 1][j] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i - 1][j - 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i + 1][j - 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 	if (tab[i - 1][j + 1] == BONHOMME)
 	{
-		mort = 2;
+		mort = 1;
 	}
 
 	tab[i][j] = EXPLOSION;
@@ -612,18 +616,10 @@ void jouer(SDL_Surface *ecran, Ressource *sprite,Liste *liste_score)
 			ajoute_score(liste_score,nouveau_score);
 			ecrire_score(liste_score);
 			
-			// Affichage de l'image "win" pendant 2,5 secondes
+			// Affichage de l'image "gameover" pendant 2,5 secondes
 			SDL_Delay(2500);
 		}
-		if (mort == 2)
-		{
-			// Quitter la fenêtre de jeu et retourner au menu principal
-			continuer = 1;
-
-			// Affichage de l'image "gameover" pendant 2,5 secondes
-			SDL_Delay(1000);
-		}
-
+		
 		// Si on n'a trouvé aucun diamant sur la carte, c'est que la porte s'ouvre
 		if (diamant == 0)
 		{
